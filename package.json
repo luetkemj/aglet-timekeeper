@@ -1,0 +1,60 @@
+{
+  "name": "scribe-hexmap",
+  "version": "0.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "npm run clean:build && npm run clean:dist && npm run lint && npm run test && npm run webpack",
+    "clean:build": "rimraf build",
+    "clean:coverage": "rimraf coverage",
+    "clean:dist": "rimraf dist",
+    "clean:node_modules": "rimraf node_modules",
+    "clean": "npm run clean:build && npm run clean:coverage && npm run clean:dist && npm run clean:node_modules",
+    "reinstall": "npm run clean && yarn",
+    "lint:eslint": "eslint .",
+    "lint": "npm run lint:eslint",
+    "prepublish": "npm run build",
+    "start": "node_modules/.bin/webpack-dev-server --config ./webpack.config.dev.js",
+    "test:watch": "jest --watch --coverage",
+    "test": "npm run lint && jest --coverage",
+    "webpack": "./node_modules/.bin/webpack --config webpack.config.prod.js"
+  },
+  "author": "luetkemj",
+  "license": "MIT",
+  "jest": {
+    "verbose": true
+  },
+  "dependencies": {
+    "lodash": "4.17.4",
+    "react": "15.6.1",
+    "react-dom": "15.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "7.0.0",
+    "babel-plugin-transform-strict-mode": "6.24.1",
+    "babel-preset-env": "1.5.1",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-0": "6.24.1",
+    "copy-webpack-plugin": "4.0.1",
+    "css-loader": "0.28.4",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "15.0.1",
+    "eslint-config-airbnb-base": "11.2.0",
+    "eslint-plugin-import": "2.3.0",
+    "eslint-plugin-jsx-a11y": "5.0.3",
+    "eslint-plugin-react": "7.0.1",
+    "html-webpack-harddisk-plugin": "0.1.0",
+    "html-webpack-plugin": "2.29.0",
+    "jest": "20.0.4",
+    "node-sass": "4.5.3",
+    "rimraf": "2.6.1",
+    "sass-loader": "6.0.5",
+    "style-loader": "0.18.2",
+    "svg-url-loader": "2.1.1",
+    "url-loader": "0.5.9",
+    "webpack": "2.6.1",
+    "webpack-dev-server": "2.4.5"
+  }
+}

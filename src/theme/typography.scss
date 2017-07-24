@@ -1,0 +1,32 @@
+$serif: 'Crimson Text';
+$sans-serif: 'Lato';
+
+$very-small: 12px;
+$small: 14px;
+$medium: 16px;
+$medium-medium: 18px;
+$medium-large: 20px;
+$large: 36px;
+
+$light: 300;
+$normal: 400;
+$bold: 600;
+
+@mixin fontsmoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin font ($options: ()) {
+  // setup defaults
+  $config: map-merge((
+      font-family: $sans-serif,
+      font-size: $medium,
+      font-weight: $normal,
+  ), $options);
+
+  // the styles we output
+  font-family: map-get($config, font-family);
+  font-size: map-get($config, font-size);
+  font-weight: map-get($config, font-weight);
+}
