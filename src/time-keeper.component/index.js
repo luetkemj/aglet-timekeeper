@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-import style from './time-keeper.component.scss';
+import style from './style.scss';
 
 export default class TimeKeeper extends Component {
   state = {
