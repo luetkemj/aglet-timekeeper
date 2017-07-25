@@ -60,6 +60,7 @@ export default class TimeKeeper extends Component {
         <div className={style.controls}>
           {buttons.map(button => (
             <IncrementButton
+              key={`${button.unit}-${button.duration}`}
               increment={this.props.increment}
               initialMs={this.props.initialMs}
               duration={button.duration}
@@ -85,7 +86,7 @@ TimeKeeper.propTypes = {
   initialMs: PropTypes.number.isRequired,
   buttons: PropTypes.arrayOf(
     PropTypes.shape({
-      milliseconds: PropTypes.string.isRequired,
+      duration: PropTypes.number.isRequired,
       unit: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,

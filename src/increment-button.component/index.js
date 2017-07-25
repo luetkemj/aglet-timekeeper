@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './style.scss';
 
-const IncrementButton = ({ increment, initialMs, unit, duration }) => (
+const IncrementButton = ({ increment, unit, duration }) => (
   <button
     className={style.button}
-    onClick={() => increment(initialMs, moment.duration(duration, unit).asMilliseconds())}
+    onClick={() => increment(moment.duration(duration, unit).asMilliseconds())}
   >
     <span className={style.duration}>{duration}</span>
     <span className={style.unit}>{unit.slice(0, 1)}</span>
@@ -15,7 +15,6 @@ const IncrementButton = ({ increment, initialMs, unit, duration }) => (
 
 IncrementButton.propTypes = {
   increment: PropTypes.func.isRequired,
-  initialMs: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
   unit: PropTypes.string.isRequired,
 };

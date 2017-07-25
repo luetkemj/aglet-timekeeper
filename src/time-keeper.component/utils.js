@@ -4,7 +4,7 @@ export function buildTimeUI(ms) {
   const myMoment = moment.utc(ms);
 
   // get absolute days from start of time
-  const days = moment.duration(ms).days();
+  const days = moment.duration(ms).asDays();
   const hours = myMoment.format('HH');
   const minutes = myMoment.format('mm');
   const seconds = myMoment.format('ss');
