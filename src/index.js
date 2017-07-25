@@ -19,6 +19,16 @@ render(
       increment={() => {}}
       initialMs={timeUI.ms}
       phaseOfMoon={phaseOfMoon(timeUI.days, timeUI.hours)}
+      buttons={[
+        {
+          unit: 'seconds',
+          duration: '6',
+        },
+        {
+          unit: 'minutes',
+          duration: '1',
+        },
+      ]}
     />
   </div>,
   document.getElementById('root'),

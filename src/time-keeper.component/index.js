@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import IncrementButton from '../increment-button.component';
 
 import style from './style.scss';
 
@@ -16,33 +17,13 @@ export default class TimeKeeper extends Component {
     clearTimeout(this.state.timerId);
   }
 
-  increment6s = () => {
-    this.props.increment(this.props.initialMs, 6000);
-  };
-
-  increment5m = () => {
-    this.props.increment(this.props.initialMs, 300000);
-  };
-
-  increment10m = () => {
-    this.props.increment(this.props.initialMs, 600000);
-  };
-
-  increment1h = () => {
-    this.props.increment(this.props.initialMs, 3600000);
-  };
-
-  increment8h = () => {
-    this.props.increment(this.props.initialMs, 28800000);
-  };
-
   render() {
     let timeKeeperClasses = style.timeKeeper;
     if (this.state.mounted) {
       timeKeeperClasses += ` ${style.hasMounted}`;
     }
 
-    const { day, time, sky, rotation, phaseOfMoon } = this.props;
+    const { day, time, sky, rotation, phaseOfMoon, buttons } = this.props;
     const counterRotation = rotation * -1;
     const rotate = {
       transform: `rotate(${rotation}deg)`,
@@ -77,26 +58,13 @@ export default class TimeKeeper extends Component {
         </div>
 
         <div className={style.controls}>
-          <button className={style.button} onClick={this.increment6s}>
-            <span className={style.duration}>6</span>
-            <span className={style.unit}>s</span>
-          </button>
-          <button className={style.button} onClick={this.increment5m}>
-            <span className={style.duration}>5</span>
-            <span className={style.unit}>m</span>
-          </button>
-          <button className={style.button} onClick={this.increment10m}>
-            <span className={style.duration}>10</span>
-            <span className={style.unit}>m</span>
-          </button>
-          <button className={style.button} onClick={this.increment1h}>
-            <span className={style.duration}>1</span>
-            <span className={style.unit}>h</span>
-          </button>
-          <button className={style.button} onClick={this.increment8h}>
-            <span className={style.duration}>8</span>
-            <span className={style.unit}>h</span>
-          </button>
+          {buttons.map(button => (
+            <IncrementButton
+              increment={this.props.increment}
+              initialMs={this.props.initialMs}
+              duration={button.duration}
+              unit={button.unit}
+            />))}
         </div>
       </div>
     );
@@ -115,4 +83,10 @@ TimeKeeper.propTypes = {
   rotation: PropTypes.number.isRequired,
   increment: PropTypes.func.isRequired,
   initialMs: PropTypes.number.isRequired,
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({
+      milliseconds: PropTypes.string.isRequired,
+      unit: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
 };

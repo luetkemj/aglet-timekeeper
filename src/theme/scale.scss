@@ -1,0 +1,8 @@
+$size: 100;
+$scaled-small: $size * ($small * 0.01);
+$scaled-very-small: $size * ($very-small * 0.01);
+$scaled-medium: $size * ($medium * 0.01);
+$scaled-medium-large: $size * ($medium-large * 0.01);
+$scaled-large: $size * ($large * 0.01);
+
+$scale: $scaled-very-small;

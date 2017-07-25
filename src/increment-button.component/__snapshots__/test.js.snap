@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<button
+  className="button"
+  onClick={[Function]}
+>
+  <span
+    className="duration"
+  >
+    6
+  </span>
+  <span
+    className="unit"
+  >
+    s
+  </span>
+</button>
+`;
