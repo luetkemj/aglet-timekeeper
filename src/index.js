@@ -5,17 +5,19 @@ import { buildTimeUI, phaseOfMoon } from './time-keeper.component/utils';
 
 class AppContainer extends Component {
   state = {
-    time: 10000,
+    time: 0,
   }
 
   timeUI = buildTimeUI(this.state.time);
 
   increment = (milliseconds) => {
+    const updatedTime = this.state.time + milliseconds;
+
     this.setState({
-      time: this.state.time += milliseconds,
+      time: updatedTime,
     });
 
-    this.timeUI = buildTimeUI(this.state.time);
+    this.timeUI = buildTimeUI(updatedTime);
   }
 
   render() {

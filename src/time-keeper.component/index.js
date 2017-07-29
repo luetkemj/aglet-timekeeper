@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import IncrementButton from '../increment-button.component';
+import Sundial from '../sundial.component';
 
 import style from './style.scss';
 
@@ -24,31 +25,15 @@ export default class TimeKeeper extends Component {
     }
 
     const { day, time, sky, rotation, phaseOfMoon, buttons } = this.props;
-    const counterRotation = rotation * -1;
-    const rotate = {
-      transform: `rotate(${rotation}deg)`,
-    };
-    const counterRotate = {
-      transform: `rotate(${counterRotation}deg)`,
-    };
-    const skyColor = style[sky];
-
-    const phaseClass = `moon${phaseOfMoon}`;
-    const moonClasses = `${style.moon} ${style[phaseClass]}`;
 
     return (
       <div className={timeKeeperClasses}>
         <div className={style.dayCount}>DAY {day}</div>
-        <div className={style.sundial}>
-          <div className={`${style.sky} ${skyColor}`}>
-            <div className={style.stars} />
-            <div className={style.sunMoon} style={rotate}>
-              <div className={style.sun} style={counterRotate} />
-              <div className={moonClasses} style={counterRotate} />
-            </div>
-          </div>
-        </div>
-
+        <Sundial
+          phaseOfMoon={phaseOfMoon}
+          sky={sky}
+          rotation={rotation}
+        />
         <div className={style.time}>
           {time.hours}
           <span className={style.colon}>:</span>
