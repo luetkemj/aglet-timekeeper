@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="sundial"
+>
+  <div
+    className="sky day"
+  >
+    <div
+      className="stars"
+    />
+    <div
+      className="sunMoon"
+      style={
+        Object {
+          "transform": "rotate(360deg)",
+        }
+      }
+    >
+      <div
+        className="sun"
+        style={
+          Object {
+            "transform": "rotate(-360deg)",
+          }
+        }
+      />
+      <div
+        className="moon moon1"
+        style={
+          Object {
+            "transform": "rotate(-360deg)",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
