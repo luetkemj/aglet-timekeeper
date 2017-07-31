@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import TimeKeeper from './time-keeper.component';
-import { buildTimeUI, phaseOfMoon } from './time-keeper.component/utils';
+import { buildTimeUI, getPhaseOfMoon } from './utils';
 
 class AppContainer extends Component {
   state = {
@@ -23,7 +23,7 @@ class AppContainer extends Component {
   render() {
     return (
       <TimeKeeper
-        day={Math.floor(this.timeUI.days)}
+        day={this.timeUI.days}
         time={{
           hours: this.timeUI.hours,
           minutes: this.timeUI.minutes,
@@ -33,7 +33,7 @@ class AppContainer extends Component {
         rotation={this.timeUI.rotation}
         increment={this.increment}
         initialMs={this.timeUI.ms}
-        phaseOfMoon={phaseOfMoon(this.timeUI.days, this.timeUI.hours)}
+        phaseOfMoon={getPhaseOfMoon(this.timeUI.days, this.timeUI.hours)}
         buttons={[
           {
             unit: 'seconds',

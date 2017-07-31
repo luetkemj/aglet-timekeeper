@@ -1,16 +1,6 @@
 import moment from 'moment';
 
-export function buildTimeUI(ms) {
-  const myMoment = moment.utc(ms);
-
-  // get absolute days from start of time
-  const days = moment.duration(ms).asDays();
-  const hours = myMoment.format('HH');
-  const minutes = myMoment.format('mm');
-  const seconds = myMoment.format('ss');
-  const hoursN = parseInt(hours, 10);
-  const minutesN = parseInt(minutes, 10);
-
+export function getSky(hoursN) {
   // set the sky colors per time of day
   let sky;
   if (hoursN === 6) {
@@ -23,6 +13,10 @@ export function buildTimeUI(ms) {
     sky = 'day';
   }
 
+  return sky;
+}
+
+export function getRotation(days, hoursN, minutesN) {
   // set the rotation of the sun and moon
   const rotation =
   // get the rotation based on total number of days
@@ -33,18 +27,10 @@ export function buildTimeUI(ms) {
   // get the little bit of rotation from minutes cause the maths are even enough?
   (minutesN * -0.25);
 
-  return {
-    ms,
-    days,
-    hours,
-    minutes,
-    seconds,
-    sky,
-    rotation,
-  };
+  return rotation;
 }
 
-export function phaseOfMoon(day, hours) {
+export function getPhaseOfMoon(day, hours) {
   // day is 0 based so we need to add 1 because our phases of the moon are 1 based
   const dayN = parseInt(day, 10) + 1;
   const hoursN = parseInt(hours, 10);
@@ -61,4 +47,31 @@ export function phaseOfMoon(day, hours) {
   }
 
   return dayN % 28;
+}
+
+export function buildTimeUI(ms) {
+  const myMoment = moment.utc(ms);
+
+  // get days from start of time
+  const days = Math.floor(moment.duration(ms).asDays()) + 1;
+  const hours = myMoment.format('HH');
+  const minutes = myMoment.format('mm');
+  const seconds = myMoment.format('ss');
+
+  const daysN = parseInt(myMoment.format('DD'), 10);
+  const hoursN = parseInt(hours, 10);
+  const minutesN = parseInt(minutes, 10);
+
+  const sky = getSky(hoursN);
+  const rotation = getRotation(daysN, hoursN, minutesN);
+
+  return {
+    ms,
+    days,
+    hours,
+    minutes,
+    seconds,
+    sky,
+    rotation,
+  };
 }
