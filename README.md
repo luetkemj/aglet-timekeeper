@@ -2,7 +2,7 @@
 
 A simple timekeeper for tabletop RPGs
 
-<img width="276" alt="screen shot 2017-08-01 at 8 15 08 pm" src="https://user-images.githubusercontent.com/925980/28853439-369e24ec-76f6-11e7-944c-7a50b6d2c346.png">
+![timekeeper](https://user-images.githubusercontent.com/925980/28877228-5e4e8714-7761-11e7-85ec-7bf781f963e3.png)
 
 ## Installing / Getting started
 
