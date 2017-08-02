@@ -1,24 +1,22 @@
 import {
-  INCREMENT_TIME,
-  DECREMENT_TIME,
+  UPDATE_TIME,
 } from '../../constants/action-types';
 import * as actions from './index';
 
 describe('timeKeeper actions', () => {
-  describe('incrementTime', () => {
+  describe('updateTime', () => {
     it('should work', () => {
-      expect(actions.incrementTime(200)).toEqual({
-        type: INCREMENT_TIME,
-        ms: 200,
-      });
-    });
-  });
-
-  describe('decrementTime', () => {
-    it('should work', () => {
-      expect(actions.decrementTime(200)).toEqual({
-        type: DECREMENT_TIME,
-        ms: 200,
+      expect(actions.updateTime(1000)).toEqual({
+        type: UPDATE_TIME,
+        timeUI: {
+          ms: 1000,
+          days: 1,
+          hours: '00',
+          minutes: '00',
+          seconds: '01',
+          sky: 'night',
+          rotation: -540,
+        },
       });
     });
   });

@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import {
-  incrementTime,
-  decrementTime,
-} from '../actions/timekeeper.actions';
+import { updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
 import { getPhaseOfMoon } from '../utils';
@@ -15,7 +12,7 @@ import style from './style.scss';
 class AppContainer extends Component {
   increment = (milliseconds) => {
     const updatedMS = this.props.timeState.ms + milliseconds;
-    this.props.incrementTime(updatedMS);
+    this.props.updateTime(updatedMS);
   }
 
   render() {
@@ -28,19 +25,23 @@ class AppContainer extends Component {
       },
       {
         unit: 'minutes',
-        duration: 30,
+        duration: 1,
+      },
+      {
+        unit: 'minutes',
+        duration: 10,
       },
       {
         unit: 'hours',
-        duration: 6,
+        duration: 4,
+      },
+      {
+        unit: 'hours',
+        duration: 8,
       },
       {
         unit: 'days',
-        duration: 2,
-      },
-      {
-        unit: 'years',
-        duration: 8,
+        duration: 1,
       },
     ];
 
@@ -76,7 +77,7 @@ class AppContainer extends Component {
 }
 
 AppContainer.propTypes = {
-  incrementTime: PropTypes.func.isRequired,
+  updateTime: PropTypes.func.isRequired,
   timeState: PropTypes.shape().isRequired,
 };
 
@@ -85,8 +86,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  incrementTime,
-  decrementTime,
+  updateTime,
 }, dispatch);
 
 export default connect(

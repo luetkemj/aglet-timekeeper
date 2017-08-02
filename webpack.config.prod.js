@@ -15,7 +15,6 @@ function makeTemplate(name, obj) {
     template: `${srcPath}/${name}.html`,
     hash: 'true',
     cache: 'true',
-    chunks: [name],
   };
 
   return Object.assign({}, template, obj);
@@ -25,7 +24,7 @@ module.exports = {
   entry: `${srcPath}/index.js`,
 
   output: {
-    filename: '[name].js',
+    filename: 'index.js',
     path: distPath,
     publicPath: '/',
   },

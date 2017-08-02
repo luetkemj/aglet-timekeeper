@@ -1,15 +1,26 @@
 import {
-  INCREMENT_TIME,
-  DECREMENT_TIME,
+  UPDATE_TIME,
 } from '../../constants/action-types';
 import reducer from './index';
 
 const initialState = {
-  time: 0,
+  ms: 0,
+  days: 1,
+  hours: '00',
+  minutes: '00',
+  seconds: '00',
+  sky: 'night',
+  rotation: -540,
 };
 
 const exisitingState = {
-  time: 1000,
+  ms: 1000,
+  days: 1,
+  hours: '00',
+  minutes: '00',
+  seconds: '01',
+  sky: 'night',
+  rotation: -540,
 };
 
 describe('time reducer', () => {
@@ -18,49 +29,55 @@ describe('time reducer', () => {
   });
 
   describe('in the inital state', () => {
-    it('should handle INCREMENT_TIME', () => {
+    it('should handle UPDATE_TIME', () => {
       expect(
         reducer(initialState, {
-          type: INCREMENT_TIME,
-          ms: 200,
+          type: UPDATE_TIME,
+          timeUI: {
+            ms: 1000,
+            days: 1,
+            hours: '00',
+            minutes: '00',
+            seconds: '00',
+            sky: 'night',
+            rotation: -540,
+          },
         }),
       ).toEqual({
-        time: 200,
-      });
-    });
-
-    it('should handle DECREMENT_TIME', () => {
-      expect(
-        reducer(initialState, {
-          type: DECREMENT_TIME,
-          ms: 200,
-        }),
-      ).toEqual({
-        time: 0,
+        ms: 1000,
+        days: 1,
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+        sky: 'night',
+        rotation: -540,
       });
     });
   });
 
   describe('in an existing state', () => {
-    it('should handle INCREMENT_TIME', () => {
+    it('should handle UPDATE_TIME', () => {
       expect(
         reducer(exisitingState, {
-          type: INCREMENT_TIME,
-          ms: 200,
+          type: UPDATE_TIME,
+          timeUI: {
+            ms: 2000,
+            days: 1,
+            hours: '00',
+            minutes: '00',
+            seconds: '01',
+            sky: 'night',
+            rotation: -540,
+          },
         }),
       ).toEqual({
-        time: 1200,
-      });
-    });
-
-    it('should handle DECREMENT_TIME', () => {
-      expect(
-        reducer(exisitingState, {
-          type: DECREMENT_TIME,
-          ms: 200,
-        }),
-      ).toEqual({
-        time: 800,
+        ms: 2000,
+        days: 1,
+        hours: '00',
+        minutes: '00',
+        seconds: '01',
+        sky: 'night',
+        rotation: -540,
       });
     });
   });

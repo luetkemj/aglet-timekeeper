@@ -3,9 +3,6 @@
     "browser": true,
     "jest": true
   },
-  "globals": {
-    "PIXI": false
-  },
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
