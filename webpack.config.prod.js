@@ -26,7 +26,7 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: distPath,
-    publicPath: '/',
+    publicPath: '',
   },
 
   module: {
