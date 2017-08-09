@@ -78,6 +78,12 @@ module.exports = {
       from: `${srcPath}/assets`,
       to: `${distPath}/assets`,
     }]),
+    // Required for React to run in production mode
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       compress: true,

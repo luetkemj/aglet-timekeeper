@@ -12,7 +12,15 @@ const logger = createLogger({
   timestamp: true,
   diff: true,
 });
-const store = createStore(reducer, applyMiddleware(logger));
+
+let store;
+
+// only apply dev middleware in dev
+if (process.env.NODE_ENV !== 'production') {
+  store = createStore(reducer, applyMiddleware(logger));
+} else {
+  store = createStore(reducer);
+}
 
 render(
   <Provider store={store}>
