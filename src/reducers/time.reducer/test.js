@@ -13,7 +13,7 @@ const initialState = {
   rotation: -540,
 };
 
-const exisitingState = {
+const existingState = {
   ms: 1000,
   days: 1,
   hours: '00',
@@ -24,8 +24,14 @@ const exisitingState = {
 };
 
 describe('time reducer', () => {
-  it('should have the correct initialState', () => {
-    expect(reducer(undefined, {})).toEqual(initialState);
+  it('should have the correct initialState when localStorage is empty', () => {
+    expect(reducer(undefined || undefined, {})).toEqual(initialState);
+    expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+  });
+
+  it('should have the correct initialState when localStorage is full', () => {
+    expect(reducer(existingState || undefined, {})).toEqual(existingState);
+    expect(localStorage.getItem).toHaveBeenCalledTimes(1);
   });
 
   describe('in the inital state', () => {
@@ -52,13 +58,14 @@ describe('time reducer', () => {
         sky: 'night',
         rotation: -540,
       });
+      expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('in an existing state', () => {
     it('should handle UPDATE_TIME', () => {
       expect(
-        reducer(exisitingState, {
+        reducer(existingState, {
           type: UPDATE_TIME,
           timeUI: {
             ms: 2000,

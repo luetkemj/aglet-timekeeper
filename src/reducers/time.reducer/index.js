@@ -12,10 +12,18 @@ const initialState = {
   rotation: -540,
 };
 
-export default function timeReducer(state = initialState, action) {
+const localStorage = window.localStorage;
+const timeKeeperState = JSON.parse(localStorage.getItem('timeKeeperState'));
+
+export default function timeReducer(state = timeKeeperState || initialState, action) {
   switch (action.type) {
-    case UPDATE_TIME:
-      return Object.assign({}, state, action.timeUI);
+    case UPDATE_TIME: {
+      // build new state
+      const newState = Object.assign({}, state, action.timeUI);
+      // persist new state to local storage
+      localStorage.setItem('timeKeeperState', JSON.stringify(newState));
+      return newState;
+    }
     default:
       return state;
   }
