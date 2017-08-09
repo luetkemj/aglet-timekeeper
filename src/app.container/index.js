@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Header } from '@aglet/components';
 
 import { updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
@@ -46,30 +47,33 @@ class AppContainer extends Component {
     ];
 
     return (
-      <div className={timeKeeperClasses}>
-        <div className={style.dayCount}>DAY {this.props.timeState.days}</div>
-        <Sundial
-          phaseOfMoon={getPhaseOfMoon(this.props.timeState.days, this.props.timeState.hours)}
-          sky={this.props.timeState.sky}
-          rotation={this.props.timeState.rotation}
-        />
-        <div className={style.time}>
-          {this.props.timeState.hours}
-          <span className={style.colon}>:</span>
-          {this.props.timeState.minutes}
-          <span className={style.colon}>:</span>
-          {this.props.timeState.seconds}
-        </div>
+      <div>
+        <Header />
+        <div className={timeKeeperClasses}>
+          <div className={style.dayCount}>DAY {this.props.timeState.days}</div>
+          <Sundial
+            phaseOfMoon={getPhaseOfMoon(this.props.timeState.days, this.props.timeState.hours)}
+            sky={this.props.timeState.sky}
+            rotation={this.props.timeState.rotation}
+          />
+          <div className={style.time}>
+            {this.props.timeState.hours}
+            <span className={style.colon}>:</span>
+            {this.props.timeState.minutes}
+            <span className={style.colon}>:</span>
+            {this.props.timeState.seconds}
+          </div>
 
-        <div className={style.controls}>
-          {buttons.map(button => (
-            <IncrementButton
-              key={`${button.unit}-${button.duration}`}
-              increment={this.increment}
-              initialMs={this.props.timeState.ms}
-              duration={button.duration}
-              unit={button.unit}
-            />))}
+          <div className={style.controls}>
+            {buttons.map(button => (
+              <IncrementButton
+                key={`${button.unit}-${button.duration}`}
+                increment={this.increment}
+                initialMs={this.props.timeState.ms}
+                duration={button.duration}
+                unit={button.unit}
+              />))}
+          </div>
         </div>
       </div>
     );

@@ -8,7 +8,7 @@
     "clean:coverage": "rimraf coverage",
     "clean:dist": "rimraf dist",
     "clean:node_modules": "rimraf node_modules",
-    "clean": "npm run clean:build && npm run clean:coverage && npm run clean:dist && npm run clean:node_modules",
+    "clean": "npm run clean:coverage && npm run clean:dist && npm run clean:node_modules",
     "reinstall": "npm run clean && yarn",
     "lint:eslint": "eslint .",
     "lint:sass-lint": "sass-lint -c .sass-lint.yml 'src/**/*.scss' -v -q",
@@ -22,6 +22,7 @@
   "author": "luetkemj",
   "license": "MIT",
   "dependencies": {
+    "@aglet/components": "1.0.0",
     "lodash": "4.17.4",
     "moment": "2.18.1",
     "react": "15.6.1",
