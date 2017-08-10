@@ -1,7 +1,10 @@
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const Purify = require('purifycss-webpack-plugin');
+
 const path = require('path');
 
 const srcPath = path.resolve(__dirname, 'src');
@@ -19,6 +22,28 @@ function makeTemplate(name, obj) {
 
   return Object.assign({}, template, obj);
 }
+
+const cssLoaderConfig = {
+  loader: 'css-loader',
+  options: {
+    sourceMap: true,
+    modules: true,
+    importLoaders: 1,
+    localIdentName: '[local]___[hash:base64:5]',
+    minimize: true,
+  },
+};
+
+const sassLoaderConfig = {
+  loader: 'sass-loader',
+  options: {
+    sourceMap: true,
+  },
+};
+
+const sassLoaders = ExtractTextPlugin.extract({
+  use: [cssLoaderConfig, sassLoaderConfig],
+});
 
 module.exports = {
   entry: `${srcPath}/index.js`,
@@ -47,25 +72,18 @@ module.exports = {
     }, {
       test: /(\.scss)$/,
       exclude: /node_modules/,
-      use: [
-        {
-          loader: 'style-loader',
-        }, {
+      use: sassLoaders,
+    }, {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: {
           loader: 'css-loader',
           options: {
-            sourceMap: true,
-            modules: true,
-            importLoaders: 1,
-            localIdentName: '[local]___[hash:base64:5]',
             minimize: true,
           },
-        }, {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
         },
-      ],
+      }),
     }],
   },
 
@@ -88,6 +106,13 @@ module.exports = {
       mangle: true,
       compress: true,
       sourceMap: true,
+    }),
+    new ExtractTextPlugin('[name].min.css'),
+    new Purify({
+      basePath: srcPath,
+      paths: [
+        '/index.html',
+      ],
     }),
   ],
 };
