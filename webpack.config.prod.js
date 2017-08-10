@@ -3,7 +3,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const Purify = require('purifycss-webpack-plugin');
 
 const path = require('path');
 
@@ -108,11 +107,5 @@ module.exports = {
       sourceMap: true,
     }),
     new ExtractTextPlugin('[name].min.css'),
-    new Purify({
-      basePath: srcPath,
-      paths: [
-        '/index.html',
-      ],
-    }),
   ],
 };
