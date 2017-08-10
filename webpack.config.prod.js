@@ -14,7 +14,7 @@ function makeTemplate(name, obj) {
     alwaysWriteToDisk: true,
     inject: 'body',
     filename: `${name}.html`,
-    template: `${srcPath}/${name}.html`,
+    template: `${srcPath}/${name}.prod.html`,
     hash: 'true',
     cache: 'true',
   };
