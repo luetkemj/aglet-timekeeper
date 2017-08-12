@@ -7,7 +7,7 @@ import { buildTimeUI } from '../../utils/index';
 const initialState = {
   ms: 0,
   days: 1,
-  hours: '00',
+  hours: '12',
   minutes: '00',
   seconds: '00',
   sky: 'night',
