@@ -1,19 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<button
-  className="button"
-  onClick={[Function]}
+<div
+  className="container"
 >
-  <span
-    className="duration"
+  <button
+    className="incrementButton"
+    onClick={[Function]}
+  />
+  <div
+    className="textWrapper"
   >
-    6
-  </span>
-  <span
-    className="unit"
-  >
-    s
-  </span>
-</button>
+    <span
+      className="duration"
+    >
+      6
+    </span>
+    <span
+      className="unit"
+    >
+      s
+    </span>
+  </div>
+  <button
+    className="decrementButton"
+    onClick={[Function]}
+  />
+</div>
 `;

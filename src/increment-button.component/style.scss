@@ -2,35 +2,66 @@
 @import '../theme/swatches';
 @import '../theme/scale';
 
-.button {
-  background: $swatch01;
-  color: $swatch02;
-  width: $size * 0.3px;
-  height: $size * 0.3px;
-  border-radius: 100%;
-  border: 0;
-  @include font((font-size: $scale));
-  text-align: center;
-  padding: 0;
-  margin-right: $size * 0.05px;
-  cursor: pointer;
-  transition: background-color 300ms ease;
+.container {
+  margin-right: 8px;
 
   &:last-child {
     margin-right: 0;
   }
+}
+
+.incrementButton {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid $swatch01;
+
+  cursor: pointer;
+  transition: border-bottom-color 300ms ease;
 
   &:hover {
-    background-color: $swatch06;
+    border-bottom-color: $swatch06;
   }
 
   &:active {
-    background-color: $swatch07;
+    border-bottom-color: $swatch07;
   }
 
   &:focus {
     outline: 0;
   }
+}
+
+.decrementButton {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 25px solid $swatch01;
+
+  cursor: pointer;
+  transition: border-top-color 300ms ease;
+
+  &:hover {
+    border-top-color: $swatch06;
+  }
+
+  &:active {
+    border-top-color: $swatch07;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.textWrapper {
+  color: $swatch01;
+  @include font((font-size: $medium));
+  text-align: center;
+  padding: 0;
+  margin: 12px auto;
 }
 
 .duration {

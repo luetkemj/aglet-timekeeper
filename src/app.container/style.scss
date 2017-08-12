@@ -5,7 +5,7 @@
 
 $transition-sky: 500ms;
 $transition-sun-moon: 300ms;
-$size: 100;
+$size: 200;
 $scaled-small: $size * ($small * 0.01);
 $scaled-very-small: $size * ($very-small * 0.01);
 $scaled-medium: $size * ($medium * 0.01);
@@ -28,6 +28,7 @@ $scaled-large: $size * ($large * 0.01);
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 24px;
 }
 
 .dayCount {
@@ -43,4 +44,9 @@ $scaled-large: $size * ($large * 0.01);
 
 .colon {
   margin: 0 $size * 0.1px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
 }

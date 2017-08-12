@@ -11,6 +11,11 @@ import { getPhaseOfMoon } from '../utils';
 import style from './style.scss';
 
 class AppContainer extends Component {
+  decrement = (milliseconds) => {
+    const updatedMS = this.props.timeState.ms - milliseconds;
+    this.props.updateTime(updatedMS);
+  }
+
   increment = (milliseconds) => {
     const updatedMS = this.props.timeState.ms + milliseconds;
     this.props.updateTime(updatedMS);
@@ -69,6 +74,7 @@ class AppContainer extends Component {
               <IncrementButton
                 key={`${button.unit}-${button.duration}`}
                 increment={this.increment}
+                decrement={this.decrement}
                 initialMs={this.props.timeState.ms}
                 duration={button.duration}
                 unit={button.unit}
