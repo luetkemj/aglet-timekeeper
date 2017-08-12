@@ -5,6 +5,7 @@ import IncrementButton from '.';
 it('renders correctly', () => {
   const tree = renderer.create(
     <IncrementButton
+      decrement={() => {}}
       increment={() => {}}
       initialMs={10000}
       duration={6}
