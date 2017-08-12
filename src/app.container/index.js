@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Header } from '@aglet/components';
 
-import { updateFormat, updateTime } from '../actions/timekeeper.actions';
+import { resetTime, updateFormat, updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
 import Controls from '../controls.component';
@@ -15,7 +15,7 @@ class AppContainer extends Component {
   setFormat12 = () => this.props.updateFormat(false);
   setFormat24 = () => this.props.updateFormat(true);
 
-  resetTime = () => this.props.updateTime(0);
+  resetTime = () => this.props.resetTime();
 
   decrement = (milliseconds) => {
     const updatedMS = this.props.timeState.ms - milliseconds;
@@ -99,6 +99,7 @@ class AppContainer extends Component {
 }
 
 AppContainer.propTypes = {
+  resetTime: PropTypes.func.isRequired,
   updateFormat: PropTypes.func.isRequired,
   updateTime: PropTypes.func.isRequired,
   timeState: PropTypes.shape().isRequired,
@@ -109,6 +110,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  resetTime,
   updateFormat,
   updateTime,
 }, dispatch);

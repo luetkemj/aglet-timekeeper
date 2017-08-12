@@ -1,4 +1,5 @@
 import {
+  RESET_TIME,
   UPDATE_FORMAT,
   UPDATE_TIME,
 } from '../../constants/action-types';
@@ -20,6 +21,16 @@ const timeKeeperState = JSON.parse(localStorage.getItem('timeKeeperState'));
 
 export default function timeReducer(state = timeKeeperState || initialState, action) {
   switch (action.type) {
+    case RESET_TIME: {
+      // build new state
+      const timeUI = buildTimeUI(0, state.militaryTime);
+      const newState = Object.assign({}, state, {
+        ...timeUI,
+      });
+      // persist new state to local storage
+      localStorage.setItem('timeKeeperState', JSON.stringify(newState));
+      return newState;
+    }
     case UPDATE_TIME: {
       // build new state
       const timeUI = buildTimeUI(action.ms, state.militaryTime);
