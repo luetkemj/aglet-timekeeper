@@ -10,7 +10,7 @@ $large: 36px;
 
 $light: 300;
 $normal: 400;
-$bold: 600;
+$bold: 700;
 
 @mixin fontsmoothing {
   -webkit-font-smoothing: antialiased; // sass-lint:disable-line no-vendor-prefixes
@@ -29,4 +29,5 @@ $bold: 600;
   font-family: map-get($config, font-family);
   font-size: map-get($config, font-size);
   font-weight: map-get($config, font-weight);
+  @include fontsmoothing;
 }

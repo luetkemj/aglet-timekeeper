@@ -4,13 +4,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Header } from '@aglet/components';
 
-import { updateTime } from '../actions/timekeeper.actions';
+import { updateFormat, updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
+import Controls from '../controls.component';
 import { getPhaseOfMoon } from '../utils';
 import style from './style.scss';
 
 class AppContainer extends Component {
+  setFormat12 = () => this.props.updateFormat(false);
+  setFormat24 = () => this.props.updateFormat(true);
+
+  resetTime = () => this.props.updateTime(0);
+
   decrement = (milliseconds) => {
     const updatedMS = this.props.timeState.ms - milliseconds;
     this.props.updateTime(updatedMS);
@@ -22,8 +28,6 @@ class AppContainer extends Component {
   }
 
   render() {
-    const timeKeeperClasses = style.timeKeeper;
-
     const buttons = [
       {
         unit: 'seconds',
@@ -39,7 +43,7 @@ class AppContainer extends Component {
       },
       {
         unit: 'hours',
-        duration: 4,
+        duration: 1,
       },
       {
         unit: 'hours',
@@ -54,7 +58,15 @@ class AppContainer extends Component {
     return (
       <div>
         <Header />
-        <div className={timeKeeperClasses}>
+        <div className={style.controls}>
+          <Controls
+            resetTime={this.resetTime}
+            setFormat24={this.setFormat24}
+            setFormat12={this.setFormat12}
+            militaryTime={this.props.timeState.militaryTime}
+          />
+        </div>
+        <div className={style.timeKeeper}>
           <div className={style.dayCount}>DAY {this.props.timeState.days}</div>
           <Sundial
             phaseOfMoon={getPhaseOfMoon(this.props.timeState.days, this.props.timeState.hours)}
@@ -69,7 +81,7 @@ class AppContainer extends Component {
             {this.props.timeState.seconds}
           </div>
 
-          <div className={style.controls}>
+          <div className={style.buttons}>
             {buttons.map(button => (
               <IncrementButton
                 key={`${button.unit}-${button.duration}`}
@@ -87,6 +99,7 @@ class AppContainer extends Component {
 }
 
 AppContainer.propTypes = {
+  updateFormat: PropTypes.func.isRequired,
   updateTime: PropTypes.func.isRequired,
   timeState: PropTypes.shape().isRequired,
 };
@@ -96,6 +109,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  updateFormat,
   updateTime,
 }, dispatch);
 

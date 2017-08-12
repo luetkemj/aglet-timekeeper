@@ -31,6 +31,12 @@ $scaled-large: $size * ($large * 0.01);
   margin-top: 24px;
 }
 
+.controls {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+
 .dayCount {
   text-align: center;
   @include font((font-size: $scaled-small, font-weight: $bold));
@@ -46,7 +52,7 @@ $scaled-large: $size * ($large * 0.01);
   margin: 0 $size * 0.1px;
 }
 
-.controls {
+.buttons {
   display: flex;
   flex-direction: row;
 }

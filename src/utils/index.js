@@ -49,17 +49,18 @@ export function getPhaseOfMoon(day, hours) {
   return dayN % 28;
 }
 
-export function buildTimeUI(ms) {
+export function buildTimeUI(ms, militaryTime) {
   const myMoment = moment.utc(ms);
+  const hFormat = militaryTime ? 'HH' : 'h';
 
   // get days from start of time
   const days = Math.floor(moment.duration(ms).asDays()) + 1;
-  const hours = myMoment.format('HH');
+  const hours = myMoment.format(hFormat);
   const minutes = myMoment.format('mm');
   const seconds = myMoment.format('ss');
 
   const daysN = parseInt(myMoment.format('DD'), 10);
-  const hoursN = parseInt(hours, 10);
+  const hoursN = parseInt(myMoment.format('HH'), 10);
   const minutesN = parseInt(minutes, 10);
 
   const sky = getSky(hoursN);

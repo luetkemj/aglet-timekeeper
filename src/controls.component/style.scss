@@ -1,0 +1,84 @@
+@import '../theme/typography';
+@import '../theme/swatches';
+
+.container {
+  background: $swatch03;
+  padding: 28px 20px 24px;
+  color: $swatch01;
+  @include font((
+      font-size: $small,
+  ));
+}
+
+.name {
+  @include font((
+      font-weight: $bold,
+  ));
+  margin-bottom: 6px;
+}
+
+.buttonPair {
+  display: flex;
+  justify-content: space-between;
+  color: $swatch02;
+  margin-bottom: 20px;
+
+  .button {
+    width: calc(50% - 4px);
+  }
+}
+
+.button {
+  padding: 8px;
+  background-color: $swatch04;
+}
+
+.active {
+  background-color: $swatch05;
+}
+
+.textFieldContainer {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.textField {
+  padding: 8px;
+  margin: 0;
+  border: 0;
+  @include font((
+      font-size: $small,
+  ));
+  width: calc(100% - 37px);
+}
+
+.submitAdd {
+  width: 33px;
+  height: 33px;
+  background-color: $swatch04;
+  display: flex;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 15px;
+    background-color: $swatch02;
+    position: absolute;
+    left: 16px;
+    top: 9px;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 1px;
+    background-color: $swatch02;
+    position: absolute;
+    left: 9px;
+    top: 16px;
+  }
+}
