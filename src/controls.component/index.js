@@ -17,7 +17,7 @@ export default function Controls(props) {
         >24 hour</button>
       </div>
 
-      <div className={style.name}>Add Button</div>
+      {/* <div className={style.name}>Add Button</div>
       <div className={style.textFieldContainer}>
         <input className={style.textField} type="text" />
         <button className={style.submitAdd} />
@@ -27,10 +27,10 @@ export default function Controls(props) {
       <div className={style.buttonPair}>
         <button className={style.button}>Edit</button>
         <button className={style.button}>Cancel</button>
-      </div>
+      </div> */}
 
       <div className={style.dangerZone}>
-        <button className={style.textButton}>Restore Defaults</button>
+        {/* <button className={style.textButton}>Restore Defaults</button> */}
         <button className={style.textButton} onClick={() => props.resetTime()}>Reset Time</button>
       </div>
     </div>
