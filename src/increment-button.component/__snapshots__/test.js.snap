@@ -5,9 +5,13 @@ exports[`renders correctly 1`] = `
   className="container"
 >
   <button
-    className="incrementButton"
+    className="button incrementButton"
     onClick={[Function]}
-  />
+  >
+    <div
+      className="arrow"
+    />
+  </button>
   <div
     className="textWrapper"
   >
@@ -23,8 +27,12 @@ exports[`renders correctly 1`] = `
     </span>
   </div>
   <button
-    className="decrementButton"
+    className="button decrementButton"
     onClick={[Function]}
-  />
+  >
+    <div
+      className="arrow"
+    />
+  </button>
 </div>
 `;
