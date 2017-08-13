@@ -55,4 +55,6 @@ $scaled-large: $size * ($large * 0.01);
 .buttons {
   display: flex;
   flex-direction: row;
+  position: relative;
+  top: -60px;
 }

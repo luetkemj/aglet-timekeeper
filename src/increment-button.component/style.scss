@@ -8,56 +8,85 @@
   &:last-child {
     margin-right: 0;
   }
-}
-
-.incrementButton {
-  width: 0;
-  height: 0;
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
-  border-bottom: 25px solid $swatch04;
-
-  cursor: pointer;
-  transition: border-bottom-color 300ms ease;
 
   &:hover {
-    border-bottom-color: $swatch06;
+    .textWrapper {
+      color: $swatch01;
+    }
   }
+}
 
-  &:active {
-    border-bottom-color: $swatch07;
-  }
+.button {
+  cursor: pointer;
+  position: relative;
+  width: 40px;
+  height: 60px;
 
   &:focus {
     outline: 0;
+  }
+
+  .arrow {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: relative;
+    left: 10px;
+  }
+}
+
+.incrementButton {
+  top: 28px;
+  left: 2px;
+
+  &:hover {
+    .arrow {
+      border-bottom-color: $swatch06;
+    }
+  }
+
+  &:active {
+    .arrow {
+      border-bottom-color: $swatch07;
+    }
+  }
+
+  .arrow {
+    border-bottom: 10px solid $swatch01;
+    transition: border-bottom-color 300ms ease;
   }
 }
 
 .decrementButton {
-  width: 0;
-  height: 0;
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
-  border-top: 25px solid $swatch04;
-
-  cursor: pointer;
-  transition: border-top-color 300ms ease;
+  top: -20px;
+  left: 2px;
 
   &:hover {
-    border-top-color: $swatch06;
+    .arrow {
+      border-top: 10px solid $swatch07;
+    }
   }
 
   &:active {
-    border-top-color: $swatch07;
+    .arrow {
+      border-top-color: $swatch07;
+    }
   }
 
   &:focus {
     outline: 0;
+  }
+
+  .arrow {
+    border-top: 10px solid $swatch01;
+    transition: border-top-color 300ms ease;
   }
 }
 
 .textWrapper {
   color: $swatch01;
+  transition: color 300ms ease;
   @include font((font-size: $medium));
   text-align: center;
   padding: 0;
