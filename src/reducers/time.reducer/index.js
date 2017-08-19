@@ -3,7 +3,7 @@ import {
   UPDATE_FORMAT,
   UPDATE_TIME,
 } from '../../constants/action-types';
-import { buildTimeUI } from '../../utils/index';
+import { buildTimeUI, compareKeys } from '../../utils/index';
 
 const initialState = {
   ms: 0,
@@ -14,10 +14,36 @@ const initialState = {
   sky: 'night',
   rotation: -540,
   militaryTime: false,
+  buttons: [{
+    unit: 'seconds',
+    duration: 6,
+  },
+  {
+    unit: 'minutes',
+    duration: 5,
+  },
+  {
+    unit: 'minutes',
+    duration: 10,
+  },
+  {
+    unit: 'hours',
+    duration: 1,
+  },
+  {
+    unit: 'hours',
+    duration: 8,
+  }],
 };
 
 const localStorage = window.localStorage;
-const timeKeeperState = JSON.parse(localStorage.getItem('timeKeeperState'));
+let timeKeeperState = JSON.parse(localStorage.getItem('timeKeeperState'));
+
+if (timeKeeperState) {
+  if (!compareKeys(timeKeeperState, initialState)) {
+    timeKeeperState = null;
+  }
+}
 
 export default function timeReducer(state = timeKeeperState || initialState, action) {
   switch (action.type) {

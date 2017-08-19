@@ -28,33 +28,6 @@ class AppContainer extends Component {
   }
 
   render() {
-    const buttons = [
-      {
-        unit: 'seconds',
-        duration: 6,
-      },
-      {
-        unit: 'minutes',
-        duration: 1,
-      },
-      {
-        unit: 'minutes',
-        duration: 10,
-      },
-      {
-        unit: 'hours',
-        duration: 1,
-      },
-      {
-        unit: 'hours',
-        duration: 8,
-      },
-      {
-        unit: 'days',
-        duration: 1,
-      },
-    ];
-
     return (
       <div>
         <Header />
@@ -82,7 +55,7 @@ class AppContainer extends Component {
           </div>
 
           <div className={style.buttons}>
-            {buttons.map(button => (
+            {this.props.timeState.buttons.map(button => (
               <IncrementButton
                 key={`${button.unit}-${button.duration}`}
                 increment={this.increment}

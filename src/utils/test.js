@@ -5,6 +5,16 @@ describe('utils', () => {
     expect(utils).toBeDefined();
   });
 
+  describe('compareKeys', () => {
+    it('compareKeys unmatching keys correctly', () => {
+      expect(utils.compareKeys({ a: 1, b: 2 }, { a: 3, b: 1, c: 2 })).toBe(false);
+    });
+
+    it('compareKeys matching keys correctly', () => {
+      expect(utils.compareKeys({ a: 1, b: 2, c: 3 }, { a: 3, b: 1, c: 2 })).toBe(true);
+    });
+  });
+
   describe('getSky', () => {
     it('should return the dawn sky correctly', () => {
       expect(utils.getSky(6)).toBe('dawn');

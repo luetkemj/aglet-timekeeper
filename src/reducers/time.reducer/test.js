@@ -13,6 +13,26 @@ const initialState = {
   sky: 'night',
   rotation: -540,
   militaryTime: false,
+  buttons: [{
+    unit: 'seconds',
+    duration: 6,
+  },
+  {
+    unit: 'minutes',
+    duration: 5,
+  },
+  {
+    unit: 'minutes',
+    duration: 10,
+  },
+  {
+    unit: 'hours',
+    duration: 1,
+  },
+  {
+    unit: 'hours',
+    duration: 8,
+  }],
 };
 
 const existingState = {
@@ -24,6 +44,26 @@ const existingState = {
   sky: 'night',
   rotation: -540,
   militaryTime: true,
+  buttons: [{
+    unit: 'seconds',
+    duration: 6,
+  },
+  {
+    unit: 'minutes',
+    duration: 5,
+  },
+  {
+    unit: 'minutes',
+    duration: 10,
+  },
+  {
+    unit: 'hours',
+    duration: 1,
+  },
+  {
+    unit: 'hours',
+    duration: 8,
+  }],
 };
 
 describe('time reducer', () => {
@@ -53,6 +93,26 @@ describe('time reducer', () => {
         sky: 'night',
         rotation: -540,
         militaryTime: false,
+        buttons: [{
+          unit: 'seconds',
+          duration: 6,
+        },
+        {
+          unit: 'minutes',
+          duration: 5,
+        },
+        {
+          unit: 'minutes',
+          duration: 10,
+        },
+        {
+          unit: 'hours',
+          duration: 1,
+        },
+        {
+          unit: 'hours',
+          duration: 8,
+        }],
       });
       expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     });
@@ -74,6 +134,26 @@ describe('time reducer', () => {
         sky: 'night',
         rotation: -540,
         militaryTime: true,
+        buttons: [{
+          unit: 'seconds',
+          duration: 6,
+        },
+        {
+          unit: 'minutes',
+          duration: 5,
+        },
+        {
+          unit: 'minutes',
+          duration: 10,
+        },
+        {
+          unit: 'hours',
+          duration: 1,
+        },
+        {
+          unit: 'hours',
+          duration: 8,
+        }],
       });
     });
 
@@ -92,6 +172,26 @@ describe('time reducer', () => {
         sky: 'night',
         rotation: -540,
         militaryTime: true,
+        buttons: [{
+          unit: 'seconds',
+          duration: 6,
+        },
+        {
+          unit: 'minutes',
+          duration: 5,
+        },
+        {
+          unit: 'minutes',
+          duration: 10,
+        },
+        {
+          unit: 'hours',
+          duration: 1,
+        },
+        {
+          unit: 'hours',
+          duration: 8,
+        }],
       });
     });
   });

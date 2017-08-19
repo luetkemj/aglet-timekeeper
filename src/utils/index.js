@@ -1,5 +1,11 @@
 import moment from 'moment';
 
+export function compareKeys(a, b) {
+  const aKeys = Object.keys(a).sort();
+  const bKeys = Object.keys(b).sort();
+  return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+}
+
 export function getSky(hoursN) {
   // set the sky colors per time of day
   let sky;
