@@ -1,5 +1,41 @@
 import moment from 'moment';
 
+export function parser(exp) {
+  const units = {
+    s: 'seconds',
+    m: 'minutes',
+    h: 'hours',
+    d: 'days',
+    y: 'years',
+  };
+
+  // parse value/denomination pairs
+  const regexVDP = /(-*[0-9]+ *[a-z]{1})/gi;
+
+  // parse value from value/denomination pairs
+  const regexV = /(-*[0-9]*)/;
+
+  // parse denomination from value/denomination pairs
+  const regexD = /[a-z]{1}/i;
+
+  const array = [];
+
+  let m;
+
+  do {
+    m = regexVDP.exec(exp);
+    if (m) {
+      const o = {};
+      o.duration = parseInt(regexV.exec(m[0])[0], 10);
+      o.unit = units[regexD.exec(m[0])[0].toLowerCase()];
+      array.push(o);
+    }
+  } while (m);
+
+  return array;
+}
+
+
 export function compareKeys(a, b) {
   const aKeys = Object.keys(a).sort();
   const bKeys = Object.keys(b).sort();

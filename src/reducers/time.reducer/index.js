@@ -1,4 +1,9 @@
+import { cloneDeep, orderBy, pullAt } from 'lodash';
+import moment from 'moment';
+
 import {
+  ADD_BUTTON,
+  REMOVE_BUTTONS,
   RESET_TIME,
   UPDATE_FORMAT,
   UPDATE_TIME,
@@ -79,6 +84,22 @@ export default function timeReducer(state = timeKeeperState || initialState, act
       localStorage.setItem('timeKeeperState', JSON.stringify(newState));
       return newState;
     }
+
+    case REMOVE_BUTTONS: {
+      const buttons = cloneDeep(state.buttons);
+      pullAt(buttons, action.buttons);
+      return Object.assign({}, state, { buttons });
+    }
+
+    case ADD_BUTTON: {
+      let buttons = cloneDeep(state.buttons);
+      buttons.push(action.button);
+      buttons = orderBy(buttons,
+        button => moment.duration(button.duration, button.unit).asMilliseconds());
+
+      return Object.assign({}, state, { buttons });
+    }
+
     default:
       return state;
   }

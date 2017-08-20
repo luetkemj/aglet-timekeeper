@@ -5,6 +5,15 @@ describe('utils', () => {
     expect(utils).toBeDefined();
   });
 
+  describe('parser', () => {
+    it('should work', () => {
+      expect(utils.parser('6s')).toEqual([{
+        unit: 'seconds',
+        duration: 6,
+      }]);
+    });
+  });
+
   describe('compareKeys', () => {
     it('compareKeys unmatching keys correctly', () => {
       expect(utils.compareKeys({ a: 1, b: 2 }, { a: 3, b: 1, c: 2 })).toBe(false);

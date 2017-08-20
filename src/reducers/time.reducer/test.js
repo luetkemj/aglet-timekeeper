@@ -1,4 +1,6 @@
 import {
+  ADD_BUTTON,
+  REMOVE_BUTTONS,
   RESET_TIME,
   UPDATE_TIME,
 } from '../../constants/action-types';
@@ -179,6 +181,81 @@ describe('time reducer', () => {
         {
           unit: 'minutes',
           duration: 5,
+        },
+        {
+          unit: 'minutes',
+          duration: 10,
+        },
+        {
+          unit: 'hours',
+          duration: 1,
+        },
+        {
+          unit: 'hours',
+          duration: 8,
+        }],
+      });
+    });
+
+    it('should handle REMOVE_BUTTONS', () => {
+      expect(
+        reducer(existingState, {
+          type: REMOVE_BUTTONS,
+          buttons: [0, 2],
+        }),
+      ).toEqual({
+        ms: 1000,
+        days: 1,
+        hours: '00',
+        minutes: '00',
+        seconds: '01',
+        sky: 'night',
+        rotation: -540,
+        militaryTime: true,
+        buttons: [{
+          unit: 'minutes',
+          duration: 5,
+        },
+        {
+          unit: 'hours',
+          duration: 1,
+        },
+        {
+          unit: 'hours',
+          duration: 8,
+        }],
+      });
+    });
+
+    it('should handle ADD_BUTTON', () => {
+      expect(
+        reducer(existingState, {
+          type: ADD_BUTTON,
+          button: {
+            unit: 'minutes',
+            duration: 7,
+          },
+        }),
+      ).toEqual({
+        ms: 1000,
+        days: 1,
+        hours: '00',
+        minutes: '00',
+        seconds: '01',
+        sky: 'night',
+        rotation: -540,
+        militaryTime: true,
+        buttons: [{
+          unit: 'seconds',
+          duration: 6,
+        },
+        {
+          unit: 'minutes',
+          duration: 5,
+        },
+        {
+          unit: 'minutes',
+          duration: 7,
         },
         {
           unit: 'minutes',
