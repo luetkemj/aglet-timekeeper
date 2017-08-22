@@ -91,9 +91,9 @@ export function getPhaseOfMoon(day, hours) {
   return dayN % 28;
 }
 
-export function buildTimeUI(ms, militaryTime) {
+export function buildTimeUI(ms, timeFormat) {
   const myMoment = moment.utc(ms);
-  const hFormat = militaryTime ? 'HH' : 'h';
+  const hFormat = timeFormat ? 'HH' : 'h';
 
   // get days from start of time
   const days = Math.floor(moment.duration(ms).asDays()) + 1;

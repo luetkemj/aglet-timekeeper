@@ -84,7 +84,7 @@ class AppContainer extends Component {
             restoreAllDefaults={this.restoreAllDefaults}
             setFormat12={this.setFormat12}
             setFormat24={this.setFormat24}
-            militaryTime={this.props.timeState.militaryTime}
+            timeFormat={this.props.timeState.timeFormat}
           />
         </div>
         <div className={style.timeKeeper}>

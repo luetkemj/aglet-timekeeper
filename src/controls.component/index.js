@@ -9,7 +9,7 @@ export default function Controls(props) {
     addButton,
     buttonsEditMode,
     cancelRemoveButtons,
-    militaryTime,
+    timeFormat,
     newButtonText,
     handleNewButtonText,
     removeButtons,
@@ -42,11 +42,11 @@ export default function Controls(props) {
       <div className={style.name}>Time Format</div>
       <div className={style.buttonPair}>
         <button
-          className={militaryTime ? style.button : `${style.button} ${style.active}`}
+          className={timeFormat ? style.button : `${style.button} ${style.active}`}
           onClick={() => setFormat12()}
         >12 hour</button>
         <button
-          className={militaryTime ? `${style.button} ${style.active}` : style.button}
+          className={timeFormat ? `${style.button} ${style.active}` : style.button}
           onClick={() => setFormat24()}
         >24 hour</button>
       </div>
@@ -99,7 +99,7 @@ Controls.propTypes = {
   buttonsEditMode: PropTypes.bool.isRequired,
   cancelRemoveButtons: PropTypes.func.isRequired,
   handleNewButtonText: PropTypes.func.isRequired,
-  militaryTime: PropTypes.bool.isRequired,
+  timeFormat: PropTypes.bool.isRequired,
   newButtonText: PropTypes.string.isRequired,
   removeButtons: PropTypes.func.isRequired,
   resetTime: PropTypes.func.isRequired,
