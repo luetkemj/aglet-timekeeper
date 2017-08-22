@@ -46,9 +46,10 @@ const initialState = {
 const localStorage = window.localStorage;
 
 let timeKeeperState;
+const agletTimekeeperData = localStorage.getItem('agletTimekeeper');
 
-if (localStorage.agletTimekeeper) {
-  const data = JSON.parse(localStorage.agletTimekeeper);
+if (agletTimekeeperData) {
+  const data = JSON.parse(agletTimekeeperData);
 
   const timeFormat = (!isNull(data.timeFormat) || !isUndefined(data.timeFormat)) ?
     data.timeFormat : initialState.timeFormat;

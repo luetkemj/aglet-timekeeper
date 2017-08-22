@@ -14,7 +14,7 @@ const initialState = {
   seconds: '00',
   sky: 'night',
   rotation: -540,
-  militaryTime: false,
+  timeFormat: false,
   buttons: [{
     unit: 'seconds',
     duration: 6,
@@ -45,7 +45,7 @@ const existingState = {
   seconds: '01',
   sky: 'night',
   rotation: -540,
-  militaryTime: true,
+  timeFormat: true,
   buttons: [{
     unit: 'seconds',
     duration: 6,
@@ -94,7 +94,7 @@ describe('time reducer', () => {
         seconds: '01',
         sky: 'night',
         rotation: -540,
-        militaryTime: false,
+        timeFormat: false,
         buttons: [{
           unit: 'seconds',
           duration: 6,
@@ -135,7 +135,7 @@ describe('time reducer', () => {
         seconds: '02',
         sky: 'night',
         rotation: -540,
-        militaryTime: true,
+        timeFormat: true,
         buttons: [{
           unit: 'seconds',
           duration: 6,
@@ -173,7 +173,7 @@ describe('time reducer', () => {
         seconds: '00',
         sky: 'night',
         rotation: -540,
-        militaryTime: true,
+        timeFormat: true,
         buttons: [{
           unit: 'seconds',
           duration: 6,
@@ -211,7 +211,7 @@ describe('time reducer', () => {
         seconds: '01',
         sky: 'night',
         rotation: -540,
-        militaryTime: true,
+        timeFormat: true,
         buttons: [{
           unit: 'minutes',
           duration: 5,
@@ -244,7 +244,7 @@ describe('time reducer', () => {
         seconds: '01',
         sky: 'night',
         rotation: -540,
-        militaryTime: true,
+        timeFormat: true,
         buttons: [{
           unit: 'seconds',
           duration: 6,
