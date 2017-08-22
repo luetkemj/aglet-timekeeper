@@ -88,7 +88,10 @@ export default function timeReducer(state = timeKeeperState || initialState, act
     case REMOVE_BUTTONS: {
       const buttons = cloneDeep(state.buttons);
       pullAt(buttons, action.buttons);
-      return Object.assign({}, state, { buttons });
+
+      const newState = Object.assign({}, state, { buttons });
+      localStorage.setItem('timeKeeperState', JSON.stringify(newState));
+      return newState;
     }
 
     case ADD_BUTTON: {
@@ -97,7 +100,9 @@ export default function timeReducer(state = timeKeeperState || initialState, act
       buttons = orderBy(buttons,
         button => moment.duration(button.duration, button.unit).asMilliseconds());
 
-      return Object.assign({}, state, { buttons });
+      const newState = Object.assign({}, state, { buttons });
+      localStorage.setItem('timeKeeperState', JSON.stringify(newState));
+      return newState;
     }
 
     default:

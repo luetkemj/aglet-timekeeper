@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Header } from '@aglet/components';
+import { pull } from 'lodash';
 
-import { addButton, resetTime, updateFormat, updateTime } from '../actions/timekeeper.actions';
+import { addButton, removeButtons, resetTime, updateFormat, updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
 import Controls from '../controls.component';
@@ -12,11 +13,40 @@ import { getPhaseOfMoon } from '../utils';
 import style from './style.scss';
 
 class AppContainer extends Component {
+  state = {
+    buttonsEditMode: false,
+    buttonsToDelete: [],
+  }
+
   setFormat12 = () => this.props.updateFormat(false);
   setFormat24 = () => this.props.updateFormat(true);
-
+  toggleEditMode = () => this.setState({ buttonsEditMode: !this.state.buttonsEditMode });
   addButton = button => this.props.addButton(button);
   resetTime = () => this.props.resetTime();
+
+  cancelRemoveButtons = () => {
+    this.toggleEditMode();
+    this.setState({ buttonsToDelete: [] });
+  }
+
+  markButtonForDeletion = (index) => {
+    const buttonsToDelete = this.state.buttonsToDelete;
+    // if button is already checked for deletion then toggle it
+    if (this.state.buttonsToDelete.includes(index)) {
+      pull(buttonsToDelete, index);
+    } else {
+      buttonsToDelete.push(index);
+    }
+
+    this.setState({
+      buttonsToDelete,
+    });
+  }
+
+  removeButtons = () => {
+    this.props.removeButtons(this.state.buttonsToDelete);
+    this.cancelRemoveButtons();
+  }
 
   decrement = (milliseconds) => {
     const updatedMS = this.props.timeState.ms - milliseconds;
@@ -35,9 +65,13 @@ class AppContainer extends Component {
         <div className={style.controls}>
           <Controls
             addButton={this.addButton}
+            cancelRemoveButtons={this.cancelRemoveButtons}
+            removeButtons={this.removeButtons}
             resetTime={this.resetTime}
             setFormat24={this.setFormat24}
             setFormat12={this.setFormat12}
+            toggleEditMode={this.toggleEditMode}
+            buttonsEditMode={this.state.buttonsEditMode}
             militaryTime={this.props.timeState.militaryTime}
           />
         </div>
@@ -57,14 +91,17 @@ class AppContainer extends Component {
           </div>
 
           <div className={style.buttons}>
-            {this.props.timeState.buttons.map(button => (
+            {this.props.timeState.buttons.map((button, index) => (
               <IncrementButton
                 key={`${button.unit}-${button.duration}`}
                 increment={this.increment}
                 decrement={this.decrement}
+                markButtonForDeletion={() => this.markButtonForDeletion(index)}
                 initialMs={this.props.timeState.ms}
                 duration={button.duration}
                 unit={button.unit}
+                editMode={this.state.buttonsEditMode}
+                deleting={this.state.buttonsToDelete.includes(index)}
               />))}
           </div>
         </div>
@@ -76,6 +113,7 @@ class AppContainer extends Component {
 AppContainer.propTypes = {
   addButton: PropTypes.func.isRequired,
   resetTime: PropTypes.func.isRequired,
+  removeButtons: PropTypes.func.isRequired,
   updateFormat: PropTypes.func.isRequired,
   updateTime: PropTypes.func.isRequired,
   timeState: PropTypes.shape().isRequired,
@@ -88,6 +126,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   addButton,
   resetTime,
+  removeButtons,
   updateFormat,
   updateTime,
 }, dispatch);

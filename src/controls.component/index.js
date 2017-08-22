@@ -9,13 +9,26 @@ export default class Controls extends Component {
     newButtonText: '',
   }
 
-  onNewButtonSubmit = () =>
+  onNewButtonSubmit = () => {
     each(parser(this.state.newButtonText), button => this.props.addButton(button));
+    this.setState({
+      newButtonText: '',
+    });
+  }
 
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
+  }
+
+  editButtonsMode = () => {
+    if (this.props.buttonsEditMode) {
+      this.props.toggleEditMode();
+      return this.props.removeButtons();
+    }
+
+    return this.props.toggleEditMode();
   }
 
   render() {
@@ -33,7 +46,7 @@ export default class Controls extends Component {
           >24 hour</button>
         </div>
 
-        <div className={style.name}>Add Button</div>
+        <div className={style.name}>Add Buttons</div>
         <div className={style.textFieldContainer}>
           <input
             className={style.textField}
@@ -50,11 +63,17 @@ export default class Controls extends Component {
           />
         </div>
 
-        {/* <div className={style.name}>Remove Buttons</div>
+        {/* <div className={style.name}>Remove Buttons</div> */}
         <div className={style.buttonPair}>
-          <button className={style.button}>Edit</button>
-          <button className={style.button}>Cancel</button>
-        </div> */}
+          <button
+            className={style.button}
+            onClick={this.editButtonsMode}
+          >{this.props.buttonsEditMode ? 'Delete' : 'Edit Buttons'}</button>
+          {this.props.buttonsEditMode && <button
+            className={style.button}
+            onClick={this.props.cancelRemoveButtons}
+          >Cancel</button>}
+        </div>
 
         <div className={style.dangerZone}>
           {/* <button className={style.textButton}>Restore Defaults</button> */}
@@ -70,6 +89,10 @@ export default class Controls extends Component {
 
 Controls.propTypes = {
   addButton: PropTypes.func.isRequired,
+  buttonsEditMode: PropTypes.bool.isRequired,
+  cancelRemoveButtons: PropTypes.func.isRequired,
+  removeButtons: PropTypes.func.isRequired,
+  toggleEditMode: PropTypes.func.isRequired,
   resetTime: PropTypes.func.isRequired,
   setFormat12: PropTypes.func.isRequired,
   setFormat24: PropTypes.func.isRequired,

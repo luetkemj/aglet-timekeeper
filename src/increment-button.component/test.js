@@ -10,6 +10,7 @@ it('renders correctly', () => {
       initialMs={10000}
       duration={6}
       unit={'seconds'}
+      markButtonForDeletion={() => {}}
     />,
   ).toJSON();
   expect(tree).toMatchSnapshot();
