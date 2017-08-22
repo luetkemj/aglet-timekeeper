@@ -16,16 +16,18 @@ class AppContainer extends Component {
   state = {
     buttonsEditMode: false,
     buttonsToDelete: [],
+    newButtonText: '',
   }
 
   setFormat12 = () => this.props.updateFormat(false);
   setFormat24 = () => this.props.updateFormat(true);
-  toggleEditMode = () => this.setState({ buttonsEditMode: !this.state.buttonsEditMode });
-  addButton = button => this.props.addButton(button);
   resetTime = () => this.props.resetTime();
+  toggleButtonsEditMode = () => this.setState({ buttonsEditMode: !this.state.buttonsEditMode });
+  addButton = button => this.props.addButton(button);
+  handleNewButtonText = text => this.setState({ newButtonText: text });
 
   cancelRemoveButtons = () => {
-    this.toggleEditMode();
+    this.toggleButtonsEditMode();
     this.setState({ buttonsToDelete: [] });
   }
 
@@ -64,14 +66,16 @@ class AppContainer extends Component {
         <Header />
         <div className={style.controls}>
           <Controls
-            addButton={this.addButton}
-            cancelRemoveButtons={this.cancelRemoveButtons}
-            removeButtons={this.removeButtons}
-            resetTime={this.resetTime}
-            setFormat24={this.setFormat24}
-            setFormat12={this.setFormat12}
-            toggleEditMode={this.toggleEditMode}
+            toggleButtonsEditMode={this.toggleButtonsEditMode}
             buttonsEditMode={this.state.buttonsEditMode}
+            addButton={this.addButton}
+            removeButtons={this.removeButtons}
+            cancelRemoveButtons={this.cancelRemoveButtons}
+            newButtonText={this.state.newButtonText}
+            handleNewButtonText={this.handleNewButtonText}
+            resetTime={this.resetTime}
+            setFormat12={this.setFormat12}
+            setFormat24={this.setFormat24}
             militaryTime={this.props.timeState.militaryTime}
           />
         </div>
