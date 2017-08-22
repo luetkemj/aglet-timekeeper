@@ -14,6 +14,7 @@ export default function Controls(props) {
     handleNewButtonText,
     removeButtons,
     resetTime,
+    restoreAllDefaults,
     setFormat12,
     setFormat24,
     toggleButtonsEditMode } = props;
@@ -80,11 +81,14 @@ export default function Controls(props) {
       </div>
 
       <div className={style.dangerZone}>
-        {/* <button className={style.textButton}>Restore Defaults</button> */}
         <button
           className={style.textButton}
           onClick={() => resetTime()}
         >Reset Time</button>
+        <button
+          className={style.textButton}
+          onClick={() => restoreAllDefaults()}
+        >Restore Default Settings</button>
       </div>
     </div>
   );
@@ -99,6 +103,7 @@ Controls.propTypes = {
   newButtonText: PropTypes.string.isRequired,
   removeButtons: PropTypes.func.isRequired,
   resetTime: PropTypes.func.isRequired,
+  restoreAllDefaults: PropTypes.func.isRequired,
   toggleButtonsEditMode: PropTypes.func.isRequired,
   setFormat12: PropTypes.func.isRequired,
   setFormat24: PropTypes.func.isRequired,

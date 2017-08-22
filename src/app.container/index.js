@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 import { Header } from '@aglet/components';
 import { pull } from 'lodash';
 
-import { addButton, removeButtons, resetTime, updateFormat, updateTime } from '../actions/timekeeper.actions';
+import {
+  addButton,
+  removeButtons,
+  resetTime,
+  restoreAllDefaults,
+  updateFormat,
+  updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
 import Controls from '../controls.component';
@@ -22,6 +28,7 @@ class AppContainer extends Component {
   setFormat12 = () => this.props.updateFormat(false);
   setFormat24 = () => this.props.updateFormat(true);
   resetTime = () => this.props.resetTime();
+  restoreAllDefaults = () => this.props.restoreAllDefaults();
   toggleButtonsEditMode = () => this.setState({ buttonsEditMode: !this.state.buttonsEditMode });
   addButton = button => this.props.addButton(button);
   handleNewButtonText = text => this.setState({ newButtonText: text });
@@ -74,6 +81,7 @@ class AppContainer extends Component {
             newButtonText={this.state.newButtonText}
             handleNewButtonText={this.handleNewButtonText}
             resetTime={this.resetTime}
+            restoreAllDefaults={this.restoreAllDefaults}
             setFormat12={this.setFormat12}
             setFormat24={this.setFormat24}
             militaryTime={this.props.timeState.militaryTime}
@@ -118,6 +126,7 @@ AppContainer.propTypes = {
   addButton: PropTypes.func.isRequired,
   resetTime: PropTypes.func.isRequired,
   removeButtons: PropTypes.func.isRequired,
+  restoreAllDefaults: PropTypes.func.isRequired,
   updateFormat: PropTypes.func.isRequired,
   updateTime: PropTypes.func.isRequired,
   timeState: PropTypes.shape().isRequired,
@@ -131,6 +140,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   addButton,
   resetTime,
   removeButtons,
+  restoreAllDefaults,
   updateFormat,
   updateTime,
 }, dispatch);

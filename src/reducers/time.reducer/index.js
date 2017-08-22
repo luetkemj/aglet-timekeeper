@@ -5,6 +5,7 @@ import {
   ADD_BUTTON,
   REMOVE_BUTTONS,
   RESET_TIME,
+  RESTORE_ALL_DEFAULTS,
   UPDATE_FORMAT,
   UPDATE_TIME,
 } from '../../constants/action-types';
@@ -101,6 +102,15 @@ export default function timeReducer(state = timeKeeperState || initialState, act
         button => moment.duration(button.duration, button.unit).asMilliseconds());
 
       const newState = Object.assign({}, state, { buttons });
+      localStorage.setItem('timeKeeperState', JSON.stringify(newState));
+      return newState;
+    }
+
+    case RESTORE_ALL_DEFAULTS: {
+      const newState = Object.assign({}, state, {
+        buttons: initialState.buttons,
+        militaryTime: initialState.militaryTime,
+      });
       localStorage.setItem('timeKeeperState', JSON.stringify(newState));
       return newState;
     }
