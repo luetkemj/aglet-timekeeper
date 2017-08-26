@@ -1,4 +1,5 @@
 import {
+  UNDO,
   UPDATE_TIME,
 } from '../../constants/action-types';
 import reducer from './index';
@@ -11,16 +12,7 @@ const initialState = {
   seconds: '00',
   sky: 'night',
   rotation: -540,
-};
-
-const existingState = {
-  ms: 1000,
-  days: 1,
-  hours: '12',
-  minutes: '00',
-  seconds: '01',
-  sky: 'night',
-  rotation: -540,
+  history: [0],
 };
 
 describe('time reducer', () => {
@@ -44,15 +36,29 @@ describe('time reducer', () => {
         seconds: '01',
         sky: 'night',
         rotation: -540,
+        history: [0, 1000],
       });
       expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('in an existing state', () => {
+    let state;
+    beforeEach(() => {
+      state = {
+        ms: 1000,
+        days: 1,
+        hours: '12',
+        minutes: '00',
+        seconds: '01',
+        sky: 'night',
+        rotation: -540,
+        history: [0, 1000],
+      };
+    });
     it('should handle UPDATE_TIME', () => {
       expect(
-        reducer(existingState, {
+        reducer(state, {
           type: UPDATE_TIME,
           ms: 2000,
         }),
@@ -64,6 +70,25 @@ describe('time reducer', () => {
         seconds: '02',
         sky: 'night',
         rotation: -540,
+        history: [0, 1000, 2000],
+      });
+    });
+
+    it('should handle UNDO', () => {
+      expect(
+        reducer(state, {
+          type: UNDO,
+          ms: 0,
+        }),
+      ).toEqual({
+        ms: 0,
+        days: 1,
+        hours: '12',
+        minutes: '00',
+        seconds: '00',
+        sky: 'night',
+        rotation: -540,
+        history: [0],
       });
     });
   });

@@ -42,53 +42,26 @@ describe('utils', () => {
   });
 
   describe('buildTimeUI', () => {
-    describe('militaryTime format', () => {
-      it('should build the correct UI given 1000ms (1 second)', () => {
-        expect(utils.buildTimeUI(1000, true)).toEqual({
-          ms: 1000,
-          days: 1,
-          hours: '00',
-          minutes: '00',
-          seconds: '01',
-          sky: 'night',
-          rotation: -540,
-        });
-      });
-      it('should build the correct UI given 21600000ms (6 hours)', () => {
-        expect(utils.buildTimeUI(21600000, true)).toEqual({
-          ms: 21600000,
-          days: 1,
-          hours: '06',
-          minutes: '00',
-          seconds: '00',
-          sky: 'dawn',
-          rotation: -630,
-        });
+    it('should build the correct UI given 1000ms (1 second)', () => {
+      expect(utils.buildTimeUI(1000)).toEqual({
+        ms: 1000,
+        days: 1,
+        hours: '12',
+        minutes: '00',
+        seconds: '01',
+        sky: 'night',
+        rotation: -540,
       });
     });
-
-    describe('standard format', () => {
-      it('should build the correct UI given 1000ms (1 second)', () => {
-        expect(utils.buildTimeUI(1000)).toEqual({
-          ms: 1000,
-          days: 1,
-          hours: '12',
-          minutes: '00',
-          seconds: '01',
-          sky: 'night',
-          rotation: -540,
-        });
-      });
-      it('should build the correct UI given 21600000ms (6 hours)', () => {
-        expect(utils.buildTimeUI(21600000)).toEqual({
-          ms: 21600000,
-          days: 1,
-          hours: '6',
-          minutes: '00',
-          seconds: '00',
-          sky: 'dawn',
-          rotation: -630,
-        });
+    it('should build the correct UI given 21600000ms (6 hours)', () => {
+      expect(utils.buildTimeUI(21600000)).toEqual({
+        ms: 21600000,
+        days: 1,
+        hours: '6',
+        minutes: '00',
+        seconds: '00',
+        sky: 'dawn',
+        rotation: -630,
       });
     });
   });

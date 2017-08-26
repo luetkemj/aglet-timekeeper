@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Header } from '@aglet/components';
 
-import { updateTime } from '../actions/timekeeper.actions';
+import { undo, updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
 import { getPhaseOfMoon } from '../utils';
@@ -71,12 +71,25 @@ function AppContainer(props) {
               unit={button.unit}
             />))}
         </div>
+        <div className={style.controls}>
+          <button
+            onClick={() => props.updateTime(0)}
+            disabled={props.timeState.ms === 0}
+            className={style.button}
+          >RESET</button>
+          <button
+            onClick={() => props.undo()}
+            disabled={props.timeState.history.length === 1}
+            className={style.button}
+          >UNDO</button>
+        </div>
       </div>
     </div>
   );
 }
 
 AppContainer.propTypes = {
+  undo: PropTypes.func.isRequired,
   updateTime: PropTypes.func.isRequired,
   timeState: PropTypes.shape().isRequired,
 };
@@ -86,6 +99,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  undo,
   updateTime,
 }, dispatch);
 

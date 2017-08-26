@@ -32,9 +32,36 @@ $scaled-large: $size * ($large * 0.01);
 }
 
 .controls {
-  position: absolute;
-  left: 0;
-  z-index: 1;
+  display: flex;
+  width: $size * 1.38px;
+  justify-content: space-between;
+  margin-top: 32px;
+  @include font((font-size: $scaled-very-small, font-weight: $normal));
+
+  .button {
+    color: $swatch01;
+    transition: color 300ms ease;
+
+    &:disabled {
+      color: $swatch04;
+
+      &:hover {
+        color: $swatch04;
+      }
+
+      &:active {
+        color: $swatch04;
+      }
+    }
+
+    &:hover {
+      color: $swatch05;
+    }
+
+    &:active {
+      color: $swatch07;
+    }
+  }
 }
 
 .dayCount {

@@ -18,13 +18,16 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  margin-right: 8px;
   border-radius: 100%;
   background-color: $swatch01;
   color: $swatch02;
   @include font((font-size: $medium));
-
+  margin-right: 8px;
   transition: background-color 300ms ease;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   &:focus {
     outline: 0;
