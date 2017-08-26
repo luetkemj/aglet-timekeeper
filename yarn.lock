@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@aglet/components@1.0.0":
-  version v1.0.0
-  resolved "https://registry.yarnpkg.com/@aglet/components/-/components-1.0.0.tgz#4c603652de039ca703b78665c56149b39c67b872"
+"@aglet/components@1.3.1":
+  version v1.3.1
+  resolved "https://registry.yarnpkg.com/@aglet/components/-/components-1.3.1.tgz#9a127046cf67389fd38794fb697cf39d4d0a0b6b"
   dependencies:
     react "15.6.1"
     react-dom "15.6.1"

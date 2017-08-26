@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Header } from '@aglet/components';
+import { Footer, Header } from '@aglet/components';
 
 import { undo, updateTime } from '../actions/timekeeper.actions';
 import IncrementButton from '../increment-button.component';
@@ -45,44 +45,49 @@ function AppContainer(props) {
   ];
 
   return (
-    <div>
-      <Header />
-      <div className={style.timeKeeper}>
-        <div className={style.dayCount}>DAY {props.timeState.days}</div>
-        <Sundial
-          phaseOfMoon={getPhaseOfMoon(props.timeState.days, props.timeState.hours)}
-          sky={props.timeState.sky}
-          rotation={props.timeState.rotation}
-        />
-        <div className={style.time}>
-          {props.timeState.hours}
-          <span className={style.colon}>:</span>
-          {props.timeState.minutes}
-          <span className={style.colon}>:</span>
-          {props.timeState.seconds}
-        </div>
+    <div className={style.container}>
+      <div>
+        <Header />
+        <div className={style.timeKeeper}>
+          <div className={style.dayCount}>DAY {props.timeState.days}</div>
+          <Sundial
+            phaseOfMoon={getPhaseOfMoon(props.timeState.days, props.timeState.hours)}
+            sky={props.timeState.sky}
+            rotation={props.timeState.rotation}
+          />
+          <div className={style.time}>
+            {props.timeState.hours}
+            <span className={style.colon}>:</span>
+            {props.timeState.minutes}
+            <span className={style.colon}>:</span>
+            {props.timeState.seconds}
+          </div>
 
-        <div className={style.buttons}>
-          {buttons.map(button => (
-            <IncrementButton
-              key={`${button.unit}-${button.duration}`}
-              increment={increment}
-              duration={button.duration}
-              unit={button.unit}
-            />))}
+          <div className={style.buttons}>
+            {buttons.map(button => (
+              <IncrementButton
+                key={`${button.unit}-${button.duration}`}
+                increment={increment}
+                duration={button.duration}
+                unit={button.unit}
+              />))}
+          </div>
+          <div className={style.controls}>
+            <button
+              onClick={() => props.updateTime(0)}
+              disabled={props.timeState.ms === 0}
+              className={style.button}
+            >RESET</button>
+            <button
+              onClick={() => props.undo()}
+              disabled={props.timeState.history.length === 1}
+              className={style.button}
+            >UNDO</button>
+          </div>
         </div>
-        <div className={style.controls}>
-          <button
-            onClick={() => props.updateTime(0)}
-            disabled={props.timeState.ms === 0}
-            className={style.button}
-          >RESET</button>
-          <button
-            onClick={() => props.undo()}
-            disabled={props.timeState.history.length === 1}
-            className={style.button}
-          >UNDO</button>
-        </div>
+      </div>
+      <div className={style.footer}>
+        <Footer repo={'https://github.com/luetkemj/aglet-timekeeper/'} />
       </div>
     </div>
   );

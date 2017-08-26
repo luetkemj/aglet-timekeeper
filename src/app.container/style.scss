@@ -12,6 +12,17 @@ $scaled-medium: $size * ($medium * 0.01);
 $scaled-medium-large: $size * ($medium-large * 0.01);
 $scaled-large: $size * ($large * 0.01);
 
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.footer {
+  padding: 0 16px;
+}
+
 // On mount the sun and moon spin crazy fast from 0 to the current rotation
 // to prevent this we wait untill the component has mounted and put everything in place
 // before initalizing transform.
