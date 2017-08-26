@@ -45,7 +45,7 @@ $scaled-large: $size * ($large * 0.01);
 
 .time {
   @include font((font-size: $scaled-medium-large));
-  margin-bottom: $size * 0.2px;
+  margin-bottom: $size * 0.1px;
 }
 
 .colon {
@@ -56,5 +56,4 @@ $scaled-large: $size * ($large * 0.01);
   display: flex;
   flex-direction: row;
   position: relative;
-  top: -60px;
 }

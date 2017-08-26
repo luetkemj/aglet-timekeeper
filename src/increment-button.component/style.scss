@@ -12,147 +12,31 @@
   &:last-child {
     margin-right: 0;
   }
-
-  &:hover {
-    .textWrapper {
-      color: $swatch01;
-    }
-  }
-
-  &.editMode {
-    .incrementButton,
-    .decrementButton {
-      visibility: hidden;
-    }
-  }
-
-  &.deleting {
-    .textWrapper {
-      color: $swatch08;
-    }
-
-    .button {
-      &.deleteButton {
-        .reject {
-          &::before {
-            background-color: $swatch08;
-          }
-
-          &::after {
-            background-color: $swatch08;
-          }
-        }
-      }
-    }
-  }
 }
 
 .button {
   cursor: pointer;
-  position: relative;
   width: 40px;
-  height: 60px;
-
-  &:focus {
-    outline: 0;
-  }
-
-  .arrow {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    position: relative;
-    left: 10px;
-  }
-
-  &.deleteButton {
-    width: 21px;
-    height: 21px;
-    top: -70px;
-    left: 8px;
-    transform: rotate(45deg);
-
-    .reject {
-      position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        width: 21px;
-        height: 1px;
-        background-color: $swatch01;
-        top: 10px;
-        left: 0;
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        width: 1px;
-        height: 21px;
-        background-color: $swatch01;
-        left: 10px;
-      }
-    }
-  }
-}
-
-.incrementButton {
-  top: 28px;
-  left: 1px;
-
-  &:hover {
-    .arrow {
-      border-bottom-color: $swatch06;
-    }
-  }
-
-  &:active {
-    .arrow {
-      border-bottom-color: $swatch07;
-    }
-  }
-
-  .arrow {
-    border-bottom: 10px solid $swatch01;
-    transition: border-bottom-color 300ms ease;
-  }
-}
-
-.decrementButton {
-  top: -20px;
-  left: 1px;
-
-  &:hover {
-    .arrow {
-      border-top: 10px solid $swatch07;
-    }
-  }
-
-  &:active {
-    .arrow {
-      border-top-color: $swatch07;
-    }
-  }
-
-  &:focus {
-    outline: 0;
-  }
-
-  .arrow {
-    border-top: 10px solid $swatch01;
-    transition: border-top-color 300ms ease;
-  }
-}
-
-.textWrapper {
-  color: $swatch01;
-  transition: color 300ms ease;
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 100%;
+  background-color: $swatch01;
+  color: $swatch02;
   @include font((font-size: $medium));
-  text-align: center;
-  padding: 0;
-  margin: 12px auto;
+
+  transition: background-color 300ms ease;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    background-color: $swatch05;
+  }
+
+  &:active {
+    background-color: $swatch07;
+  }
 }
 
 .duration {
