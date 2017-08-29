@@ -2,6 +2,8 @@
 
 A simple timekeeper for tabletop RPGs
 
+[Live demo](http://aglet.io/tools/timekeeper/)
+
 ![timekeeper](https://user-images.githubusercontent.com/925980/28877228-5e4e8714-7761-11e7-85ec-7bf781f963e3.png)
 
 ## Installing / Getting started
