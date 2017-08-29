@@ -86,9 +86,7 @@ function AppContainer(props) {
           </div>
         </div>
       </div>
-      <div className={style.footer}>
-        <Footer repo={'https://github.com/luetkemj/aglet-timekeeper/'} />
-      </div>
+      <Footer repo={'https://github.com/luetkemj/aglet-timekeeper/'} />
     </div>
   );
 }

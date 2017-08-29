@@ -19,10 +19,6 @@ $scaled-large: $size * ($large * 0.01);
   justify-content: space-between;
 }
 
-.footer {
-  padding: 0 16px;
-}
-
 // On mount the sun and moon spin crazy fast from 0 to the current rotation
 // to prevent this we wait untill the component has mounted and put everything in place
 // before initalizing transform.
@@ -39,7 +35,7 @@ $scaled-large: $size * ($large * 0.01);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 24px;
+  margin: 24px 0;
 }
 
 .controls {
