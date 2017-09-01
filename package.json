@@ -15,7 +15,7 @@
     "lint": "npm run lint:eslint && npm run lint:sass-lint",
     "prepublish": "npm run build",
     "start": "node_modules/.bin/webpack-dev-server --config ./webpack.config.dev.js",
-    "test:watch": "jest --watch --coverage",
+    "test:watch": "jest --watch",
     "test": "npm run lint && jest --coverage",
     "webpack": "./node_modules/.bin/webpack --config webpack.config.prod.js"
   },
