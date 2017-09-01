@@ -1,5 +1,5 @@
 import {
-  UNDO,
+  UNDO_UPDATE_TIME,
   UPDATE_TIME,
 } from '../../constants/action-types';
 import * as actions from './index';
@@ -14,10 +14,10 @@ describe('timeKeeper actions', () => {
     });
   });
 
-  describe('undo', () => {
+  describe('undoUpdateTime', () => {
     it('should work', () => {
-      expect(actions.undo(1000)).toEqual({
-        type: UNDO,
+      expect(actions.undoUpdateTime(1000)).toEqual({
+        type: UNDO_UPDATE_TIME,
         ms: 1000,
       });
     });

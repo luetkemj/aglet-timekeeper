@@ -1,2 +1,2 @@
 export const UPDATE_TIME = 'UPDATE_TIME';
-export const UNDO = 'UNDO';
+export const UNDO_UPDATE_TIME = 'UNDO_UPDATE_TIME';

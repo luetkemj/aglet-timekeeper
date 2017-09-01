@@ -1,5 +1,5 @@
 import {
-  UNDO,
+  UNDO_UPDATE_TIME,
   UPDATE_TIME,
 } from '../../constants/action-types';
 import reducer from './index';
@@ -77,7 +77,7 @@ describe('time reducer', () => {
     it('should handle UNDO', () => {
       expect(
         reducer(state, {
-          type: UNDO,
+          type: UNDO_UPDATE_TIME,
           ms: 0,
         }),
       ).toEqual({

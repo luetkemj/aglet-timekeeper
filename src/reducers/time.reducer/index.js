@@ -1,5 +1,5 @@
 import {
-  UNDO,
+  UNDO_UPDATE_TIME,
   UPDATE_TIME,
 } from '../../constants/action-types';
 import { buildTimeUI } from '../../utils/index';
@@ -55,7 +55,7 @@ export default function timeReducer(state = timeKeeperState || initialState, act
       return newState;
     }
 
-    case UNDO: {
+    case UNDO_UPDATE_TIME: {
       // remove the last entry in the history
       const history = state.history;
       history.pop();
