@@ -1,6 +1,8 @@
+// @flow
+
 import moment from 'moment';
 
-export function getSky(hoursN) {
+export function getSky(hoursN: number): string {
   // set the sky colors per time of day
   let sky;
   if (hoursN === 6) {
@@ -16,7 +18,7 @@ export function getSky(hoursN) {
   return sky;
 }
 
-export function getRotation(days, hoursN, minutesN) {
+export function getRotation(days: number, hoursN: number, minutesN: number): number {
   // set the rotation of the sun and moon
   const rotation =
   // get the rotation based on total number of days
@@ -30,7 +32,7 @@ export function getRotation(days, hoursN, minutesN) {
   return rotation;
 }
 
-export function getPhaseOfMoon(day, hours) {
+export function getPhaseOfMoon(day: number, hours: number): number {
   // day is 0 based so we need to add 1 because our phases of the moon are 1 based
   const dayN = parseInt(day, 10) + 1;
   const hoursN = parseInt(hours, 10);
@@ -49,7 +51,15 @@ export function getPhaseOfMoon(day, hours) {
   return dayN % 28;
 }
 
-export function buildTimeUI(ms) {
+export function buildTimeUI(ms: number): {
+  ms: number,
+  days: number,
+  hours: string,
+  minutes: string,
+  seconds: string,
+  sky: string,
+  rotation: number,
+} {
   const myMoment = moment.utc(ms);
 
   // get days from start of time
