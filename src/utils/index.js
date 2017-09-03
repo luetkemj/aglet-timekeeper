@@ -4,7 +4,7 @@ import moment from 'moment';
 
 export function getSky(hoursN: number): string {
   // set the sky colors per time of day
-  let sky;
+  let sky = '';
   if (hoursN === 6) {
     sky = 'dawn';
   } else if (hoursN === 18) {
