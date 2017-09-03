@@ -7,6 +7,7 @@ import { Footer, Header } from '@aglet/components';
 import { undoUpdateTime, updateTime } from '../actions/time.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
+import Timers from '../timers.component';
 import { getPhaseOfMoon } from '../utils';
 import style from './style.scss';
 
@@ -84,6 +85,12 @@ function AppContainer(props) {
               className={style.button}
             >UNDO</button>
           </div>
+        </div>
+
+        <div className={style.timers}>
+          <Timers
+            onSubmit={input => console.log(input)}
+          />
         </div>
       </div>
       <Footer repo={'https://github.com/luetkemj/aglet-timekeeper/'} />

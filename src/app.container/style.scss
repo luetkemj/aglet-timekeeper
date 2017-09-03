@@ -38,6 +38,10 @@ $scaled-large: $size * ($large * 0.01);
   margin: 24px 0;
 }
 
+.timers {
+  padding: 24px;
+}
+
 .controls {
   display: flex;
   width: $size * 1.38px;
