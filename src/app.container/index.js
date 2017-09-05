@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Footer, Header } from '@aglet/components';
 
 import { undoUpdateTime, updateTime } from '../actions/time.actions';
+import { addTimer } from '../actions/timer.actions';
 import IncrementButton from '../increment-button.component';
 import Sundial from '../sundial.component';
 import Timers from '../timers.component';
@@ -89,7 +90,7 @@ function AppContainer(props) {
 
         <div className={style.timers}>
           <Timers
-            onSubmit={input => console.log(input)}
+            onSubmit={input => props.addTimer(input, props.timeState.ms)}
           />
         </div>
       </div>
@@ -99,6 +100,7 @@ function AppContainer(props) {
 }
 
 AppContainer.propTypes = {
+  addTimer: PropTypes.func.isRequired,
   undoUpdateTime: PropTypes.func.isRequired,
   updateTime: PropTypes.func.isRequired,
   timeState: PropTypes.shape().isRequired,
@@ -109,6 +111,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
+  addTimer,
   undoUpdateTime,
   updateTime,
 }, dispatch);

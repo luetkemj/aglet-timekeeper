@@ -1,30 +1,47 @@
+// @flow
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { parseTimer } from '../utils';
+
 import style from './style.scss';
 
-export default class Timers extends Component {
+type Props = {
+  onSubmit: (timer: {
+    ms: number,
+    text: string,
+  }) => void,
+}
+
+type State = {
+  timer: string,
+  isValid: ?boolean,
+};
+
+export default class Timers extends Component<Props, State> {
   state = {
     timer: '',
     isValid: null,
   }
 
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-
-    // @TODO this regex should happen on submit instead and include and error with example of a
-    // correct input
-    // const regEx = /^(?:\d*\.)?\d\w+:/g;
-    // const result = regEx.exec(event.target.value);
-
-    // need to check if result is valid (uses denominations we care about)
-    // need to check if there is text after valid timer
-    //
-    // this.setState({
-    //   isValid: result || false,
-    // });
+  handleChange = (event: {
+    target: {
+      name: string,
+      value: string,
+    }
+  }) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+      isValid: null,
+    });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = (event: {
+    stopPropagation: () => void,
+    preventDefault: () => void,
+    currentTarget: { focus: () => void },
+    target: { value: string }
+  }) => {
     event.stopPropagation();
     event.preventDefault();
 
@@ -33,17 +50,21 @@ export default class Timers extends Component {
       return;
     }
 
+    const timer = parseTimer(this.state.timer);
+
+    this.setState({
+      isValid: !!timer || false,
+    });
+
     // focus the button to blur the input field
     event.currentTarget.focus();
-    this.props.onSubmit(this.state.timer);
+    if (timer) { this.props.onSubmit(timer); }
     this.setState({
       timer: '',
     });
   }
 
   render() {
-    console.log(this.state);
-
     const inputClasses = (this.state.isValid === false) ? `${style.input} ${style.invalid}` : style.input;
 
     return (
