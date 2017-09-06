@@ -84,7 +84,77 @@ describe('timers reducer', () => {
   });
 
   describe('update timers', () => {
-    it('should work', () => {
+    it('should work when there are multiple active timers', () => {
+      expect(
+        reducer({
+          timers: [
+            { ms: 1, text: 'foo' },
+            { ms: 2, text: 'baz' },
+            { ms: 3, text: 'bar' },
+          ],
+          active: [
+            { ms: 1, text: 'foo' },
+            { ms: 2, text: 'baz' },
+          ],
+          expired: [
+            { ms: 3, text: 'bar' },
+          ],
+        }, {
+          type: UPDATE_TIMERS,
+          ms: 2,
+        }),
+      ).toEqual({
+        timers: [
+          { ms: 1, text: 'foo' },
+          { ms: 2, text: 'baz' },
+          { ms: 3, text: 'bar' },
+        ],
+        active: [
+          { ms: 3, text: 'bar' },
+        ],
+        expired: [
+          { ms: 1, text: 'foo' },
+          { ms: 2, text: 'baz' },
+        ],
+      });
+    });
+
+    it('should work when there is only one active timer', () => {
+      expect(
+        reducer({
+          timers: [
+            { ms: 1, text: 'foo' },
+            { ms: 2, text: 'baz' },
+            { ms: 3, text: 'bar' },
+          ],
+          active: [
+            { ms: 1, text: 'foo' },
+          ],
+          expired: [
+            { ms: 2, text: 'baz' },
+            { ms: 3, text: 'bar' },
+          ],
+        }, {
+          type: UPDATE_TIMERS,
+          ms: 2,
+        }),
+      ).toEqual({
+        timers: [
+          { ms: 1, text: 'foo' },
+          { ms: 2, text: 'baz' },
+          { ms: 3, text: 'bar' },
+        ],
+        active: [
+          { ms: 3, text: 'bar' },
+        ],
+        expired: [
+          { ms: 1, text: 'foo' },
+          { ms: 2, text: 'baz' },
+        ],
+      });
+    });
+
+    it('should work when there is no active timer', () => {
       expect(
         reducer({
           timers: [
@@ -93,7 +163,11 @@ describe('timers reducer', () => {
             { ms: 3, text: 'bar' },
           ],
           active: [],
-          expired: [],
+          expired: [
+            { ms: 1, text: 'foo' },
+            { ms: 2, text: 'baz' },
+            { ms: 3, text: 'bar' },
+          ],
         }, {
           type: UPDATE_TIMERS,
           ms: 2,

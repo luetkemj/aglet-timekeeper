@@ -1,4 +1,4 @@
-import { findIndex, sortedIndexBy } from 'lodash';
+import { cloneDeep, findIndex, sortedIndexBy } from 'lodash';
 
 import {
   ADD_TIMER,
@@ -15,7 +15,7 @@ const initialState = {
 export default function timeReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TIMER: {
-      const newTimer = { ...action.timer };
+      const newTimer = cloneDeep(action.timer);
       newTimer.ms = action.timer.ms + action.ms;
 
       // find index to insert new timer
@@ -46,15 +46,22 @@ export default function timeReducer(state = initialState, action) {
     }
 
     case UPDATE_TIMERS: {
-      const timers = state.timers;
-      const cuttOffIndex = findIndex(timers, o => o.ms > action.ms);
-
-      const active = [
-        ...timers.slice(cuttOffIndex),
-      ];
-      const expired = [
-        ...timers.slice(0, cuttOffIndex),
-      ];
+      const timers = cloneDeep(state.timers);
+      const cuttOffIndex = findIndex(timers, o => o.ms > action.ms) || 0;
+      let active;
+      let expired;
+      if (cuttOffIndex === -1) {
+        // no timer is active
+        active = [];
+        expired = [...timers.slice(0)];
+      } else if (cuttOffIndex === 0) {
+        // no timer is inactive
+        active = [...timers.slice(0)];
+        expired = [];
+      } else {
+        active = [...timers.slice(cuttOffIndex)];
+        expired = [...timers.slice(0, cuttOffIndex)];
+      }
 
       return {
         timers,
