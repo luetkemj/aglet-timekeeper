@@ -113,8 +113,8 @@ describe('timers reducer', () => {
           { ms: 3, text: 'bar' },
         ],
         expired: [
-          { ms: 1, text: 'foo' },
           { ms: 2, text: 'baz' },
+          { ms: 1, text: 'foo' },
         ],
       });
     });
@@ -131,8 +131,8 @@ describe('timers reducer', () => {
             { ms: 1, text: 'foo' },
           ],
           expired: [
-            { ms: 2, text: 'baz' },
             { ms: 3, text: 'bar' },
+            { ms: 2, text: 'baz' },
           ],
         }, {
           type: UPDATE_TIMERS,
@@ -148,8 +148,8 @@ describe('timers reducer', () => {
           { ms: 3, text: 'bar' },
         ],
         expired: [
-          { ms: 1, text: 'foo' },
           { ms: 2, text: 'baz' },
+          { ms: 1, text: 'foo' },
         ],
       });
     });
@@ -164,9 +164,9 @@ describe('timers reducer', () => {
           ],
           active: [],
           expired: [
-            { ms: 1, text: 'foo' },
-            { ms: 2, text: 'baz' },
             { ms: 3, text: 'bar' },
+            { ms: 2, text: 'baz' },
+            { ms: 1, text: 'foo' },
           ],
         }, {
           type: UPDATE_TIMERS,
@@ -182,8 +182,8 @@ describe('timers reducer', () => {
           { ms: 3, text: 'bar' },
         ],
         expired: [
-          { ms: 1, text: 'foo' },
           { ms: 2, text: 'baz' },
+          { ms: 1, text: 'foo' },
         ],
       });
     });

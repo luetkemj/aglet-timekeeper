@@ -53,14 +53,14 @@ export default function timeReducer(state = initialState, action) {
       if (cuttOffIndex === -1) {
         // no timer is active
         active = [];
-        expired = [...timers.slice(0)];
+        expired = [...timers.slice(0)].reverse();
       } else if (cuttOffIndex === 0) {
         // no timer is inactive
         active = [...timers.slice(0)];
         expired = [];
       } else {
         active = [...timers.slice(cuttOffIndex)];
-        expired = [...timers.slice(0, cuttOffIndex)];
+        expired = [...timers.slice(0, cuttOffIndex)].reverse();
       }
 
       return {

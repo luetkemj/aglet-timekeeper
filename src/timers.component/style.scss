@@ -57,6 +57,14 @@
   margin-bottom: 8px;
 }
 
+.adverb {
+  @include font((font-size: $small));
+}
+
 .time {
+  @include font((font-size: $small));
+}
+
+.text {
   @include font((font-weight: $bold));
 }

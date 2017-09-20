@@ -116,8 +116,13 @@ describe('utils', () => {
 
   describe('getDurationFromPair', () => {
     describe('when duration exists in pair', () => {
-      it('shoud return unit', () => {
+      it('should return duration', () => {
         expect(utils.getDurationFromPair('1d')).toEqual(1);
+      });
+    });
+    describe('when multi-digit duration exists in pair', () => {
+      it('should return duration', () => {
+        expect(utils.getDurationFromPair('333d')).toEqual(333);
       });
     });
     describe('when duration does not exist in pair', () => {
@@ -161,6 +166,9 @@ describe('utils', () => {
   describe('parseTimer', () => {
     it('should work', () => {
       expect(utils.parseTimer('1m1s: foo')).toEqual({ ms: 61000, text: 'foo' });
+    });
+    it('should work with seconds', () => {
+      expect(utils.parseTimer('333333s: foo')).toEqual({ ms: 333333000, text: 'foo' });
     });
   });
 });

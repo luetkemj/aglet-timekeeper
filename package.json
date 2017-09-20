@@ -28,6 +28,7 @@
     "css-module-flow": "1.0.0",
     "lodash": "4.17.4",
     "moment": "2.18.1",
+    "pretty-ms": "false3.0.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-redux": "5.0.6",

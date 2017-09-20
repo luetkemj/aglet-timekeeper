@@ -143,7 +143,7 @@ export function getDurationFromPair(pair: string): ?number {
   }
 
   // pair is valid, find number
-  const matches = pair.match(/([0-9])/g);
+  const matches = pair.match(/([0-9]+)/g);
 
   // return duration if it exists
   if (matches) {
