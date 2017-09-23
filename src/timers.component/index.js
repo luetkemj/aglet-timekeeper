@@ -110,6 +110,30 @@ class Timers extends Component<Props, State> {
       </div>
     ));
 
+    let activeTimersBlock;
+    if (activeTimersToRender.length) {
+      activeTimersBlock = (
+        <div>
+          <div className={style.header}>ACTIVE</div>
+          <div className={style.list}>
+            {activeTimersToRender}
+          </div>
+        </div>
+      );
+    }
+
+    let inactiveTimersBlock;
+    if (inactiveTimersToRender.length) {
+      inactiveTimersBlock = (
+        <div>
+          <div className={style.header}>EXPIRED</div>
+          <div className={style.list}>
+            {inactiveTimersToRender}
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={style.container}>
         <div className={style.componentHead}>
@@ -133,16 +157,8 @@ class Timers extends Component<Props, State> {
         </form>
 
         <div className={style.timers}>
-          <div className={style.header}>ACTIVE</div>
-          <div className={style.list}>
-            {activeTimersToRender}
-          </div>
-
-          <div className={style.header}>EXPIRED</div>
-          <div className={style.list}>
-            {inactiveTimersToRender}
-          </div>
-
+          {activeTimersBlock}
+          {inactiveTimersBlock}
         </div>
 
       </div>

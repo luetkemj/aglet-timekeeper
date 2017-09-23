@@ -67,4 +67,5 @@
 
 .text {
   @include font((font-weight: $bold));
+  display: block;
 }
