@@ -81,7 +81,8 @@ function AppContainer(props) {
               className={style.button}
             >RESET</button>
             <button
-              onClick={() => props.undoUpdateTime()}
+              onClick={() =>
+                props.undoUpdateTime(props.timeState.history[props.timeState.history.length - 2])}
               disabled={props.timeState.history.length === 1}
               className={style.button}
             >UNDO</button>
