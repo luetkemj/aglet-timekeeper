@@ -9,6 +9,7 @@ const initialState = {
   timers: [],
   active: [],
   expired: [],
+  recentlyExpired: [],
 };
 
 describe('timers reducer', () => {
@@ -28,6 +29,7 @@ describe('timers reducer', () => {
         timers: [{ ms: 3, text: 'foo' }],
         active: [],
         expired: [],
+        recentlyExpired: [],
       });
     });
   });
@@ -42,6 +44,7 @@ describe('timers reducer', () => {
           ],
           active: [],
           expired: [],
+          recentlyExpired: [],
         }, {
           type: ADD_TIMER,
           timer: { ms: 2, text: 'baz' },
@@ -55,6 +58,7 @@ describe('timers reducer', () => {
         ],
         active: [],
         expired: [],
+        recentlyExpired: [],
       });
     });
 
@@ -68,6 +72,7 @@ describe('timers reducer', () => {
           ],
           active: [],
           expired: [],
+          recentlyExpired: [],
         }, {
           type: REMOVE_TIMER,
           index: 1,
@@ -79,6 +84,7 @@ describe('timers reducer', () => {
         ],
         active: [],
         expired: [],
+        recentlyExpired: [],
       });
     });
   });
@@ -99,6 +105,7 @@ describe('timers reducer', () => {
           expired: [
             { ms: 3, text: 'bar' },
           ],
+          recentlyExpired: [],
         }, {
           type: UPDATE_TIMERS,
           ms: 2,
@@ -116,6 +123,7 @@ describe('timers reducer', () => {
           { ms: 2, text: 'baz' },
           { ms: 1, text: 'foo' },
         ],
+        recentlyExpired: [],
       });
     });
 
@@ -134,6 +142,7 @@ describe('timers reducer', () => {
             { ms: 3, text: 'bar' },
             { ms: 2, text: 'baz' },
           ],
+          recentlyExpired: [],
         }, {
           type: UPDATE_TIMERS,
           ms: 2,
@@ -151,6 +160,7 @@ describe('timers reducer', () => {
           { ms: 2, text: 'baz' },
           { ms: 1, text: 'foo' },
         ],
+        recentlyExpired: [],
       });
     });
 
@@ -168,6 +178,7 @@ describe('timers reducer', () => {
             { ms: 2, text: 'baz' },
             { ms: 1, text: 'foo' },
           ],
+          recentlyExpired: [],
         }, {
           type: UPDATE_TIMERS,
           ms: 2,
@@ -185,6 +196,85 @@ describe('timers reducer', () => {
           { ms: 2, text: 'baz' },
           { ms: 1, text: 'foo' },
         ],
+        recentlyExpired: [],
+      });
+    });
+
+
+    it('should add recently expired timers to recentlyExpired', () => {
+      expect(
+        reducer({
+          timers: [
+            { ms: 1, text: 'foo' },
+            { ms: 2, text: 'baz' },
+            { ms: 3, text: 'bar' },
+            { ms: 4, text: 'bar' },
+          ],
+          active: [],
+          expired: [
+            { ms: 1, text: 'foo' },
+          ],
+          recentlyExpired: [],
+        }, {
+          type: UPDATE_TIMERS,
+          ms: 3,
+          lastMs: 1,
+        }),
+      ).toEqual({
+        timers: [
+          { ms: 1, text: 'foo' },
+          { ms: 2, text: 'baz' },
+          { ms: 3, text: 'bar' },
+          { ms: 4, text: 'bar' },
+        ],
+        active: [
+          { ms: 4, text: 'bar' },
+        ],
+        expired: [
+          { ms: 3, text: 'bar' },
+          { ms: 2, text: 'baz' },
+          { ms: 1, text: 'foo' },
+        ],
+        recentlyExpired: [
+          { ms: 3, text: 'bar' },
+          { ms: 2, text: 'baz' },
+        ],
+      });
+    });
+
+    it('should clear recently expired when no new timers expire', () => {
+      expect(
+        reducer({
+          timers: [
+            { ms: 2, text: 'foo' },
+            { ms: 5, text: 'baz' },
+          ],
+          active: [
+            { ms: 5, text: 'baz' },
+          ],
+          expired: [
+            { ms: 2, text: 'foo' },
+          ],
+          recentlyExpired: [
+            { ms: 2, text: 'foo' },
+          ],
+        }, {
+          type: UPDATE_TIMERS,
+          ms: 4,
+          lastMs: 3,
+        }),
+      ).toEqual({
+        timers: [
+          { ms: 2, text: 'foo' },
+          { ms: 5, text: 'baz' },
+        ],
+        active: [
+          { ms: 5, text: 'baz' },
+        ],
+        expired: [
+          { ms: 2, text: 'foo' },
+        ],
+        recentlyExpired: [],
       });
     });
   });

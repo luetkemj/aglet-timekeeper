@@ -10,6 +10,7 @@ const initialState = {
   timers: [],
   active: [],
   expired: [],
+  recentlyExpired: [],
 };
 
 export default function timeReducer(state = initialState, action) {
@@ -27,22 +28,22 @@ export default function timeReducer(state = initialState, action) {
         ...state.timers.slice(index),
       ];
 
-      return {
+      return Object.assign({}, state, {
         timers,
         active: state.active,
         expired: state.expired,
-      };
+      });
     }
 
     case REMOVE_TIMER: {
-      return {
+      return Object.assign({}, state, {
         timers: [
           ...state.timers.slice(0, action.index),
           ...state.timers.slice(action.index + 1),
         ],
         active: state.active,
         expired: state.expired,
-      };
+      });
     }
 
     case UPDATE_TIMERS: {
@@ -63,10 +64,23 @@ export default function timeReducer(state = initialState, action) {
         expired = [...timers.slice(0, cuttOffIndex)].reverse();
       }
 
+      // find the most recently expired timers
+      let recentlyExpired;
+      if (action.lastMs) {
+        const expiredTimers = cloneDeep(expired);
+        // find the index of the first expired timer with an ms <= action.lastMs
+        const expiredCuttOffIndex = findIndex(expiredTimers, o => o.ms <= action.lastMs);
+        // use the index to slice off just the timers that expired during the last increment.
+        recentlyExpired = [...expiredTimers.slice(0, expiredCuttOffIndex)];
+      } else {
+        recentlyExpired = state.recentlyExpired;
+      }
+
       return {
         timers,
         active,
         expired,
+        recentlyExpired,
       };
     }
 

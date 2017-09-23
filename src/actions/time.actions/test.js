@@ -12,6 +12,7 @@ describe('time actions', () => {
     store = mockStore({
       timeState: {
         ms: 2,
+        history: [],
       },
     });
   });

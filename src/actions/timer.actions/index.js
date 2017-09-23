@@ -4,8 +4,8 @@ import {
   UPDATE_TIMERS,
 } from '../../constants/action-types';
 
-export function updateTimers(dispatch, ms) {
-  return dispatch({ type: UPDATE_TIMERS, ms });
+export function updateTimers(dispatch, ms, lastMs) {
+  return dispatch({ type: UPDATE_TIMERS, ms, lastMs });
 }
 
 export function addTimer(timer) {
