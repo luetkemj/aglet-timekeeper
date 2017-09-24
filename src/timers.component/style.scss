@@ -69,3 +69,12 @@
   @include font((font-weight: $bold));
   display: block;
 }
+
+.alerts {
+  margin-bottom: 24px;
+}
+
+.alert {
+  margin-bottom: 8px;
+  color: $swatch08;
+}

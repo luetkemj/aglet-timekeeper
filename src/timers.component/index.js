@@ -26,6 +26,10 @@ type Props = {
       ms: number,
       text: string,
     }],
+    recentlyExpired: [{
+      ms: number,
+      text: string,
+    }],
   },
   timeState: {
     ms: number,
@@ -134,8 +138,31 @@ class Timers extends Component<Props, State> {
       );
     }
 
+    let alertsToRender;
+    if (this.props.timersState.recentlyExpired.length) {
+      alertsToRender = this.props.timersState.recentlyExpired.map(timer => (
+        <div
+          key={`${timer.ms}${timer.text}`}
+          className={style.alert}
+        >
+          <span
+            className={style.time}
+          >{prettyMs(ms - timer.ms)}</span> <span className={style.adverb}>ago: </span>
+          <span className={style.text}>{timer.text}</span>
+        </div>
+      ));
+    }
+
+    let alertsBlock;
+    if (alertsToRender) {
+      alertsBlock = (
+        <div className={style.alerts}>{alertsToRender}</div>
+      );
+    }
+
     return (
       <div className={style.container}>
+        {alertsBlock}
         <div className={style.componentHead}>
           <div className={style.title}>TIMERS</div>
           <button

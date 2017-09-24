@@ -1,4 +1,4 @@
-import { cloneDeep, findIndex, sortedIndexBy } from 'lodash';
+import { cloneDeep, filter, findIndex, isUndefined, sortedIndexBy } from 'lodash';
 
 import {
   ADD_TIMER,
@@ -66,12 +66,34 @@ export default function timeReducer(state = initialState, action) {
 
       // find the most recently expired timers
       let recentlyExpired;
-      if (action.lastMs) {
+      // action.lastMs will be 0 when the first increment button is pressed so we cannot just test
+      // for falsey or not
+      if (!isUndefined(action.lastMs)) {
         const expiredTimers = cloneDeep(expired);
+
         // find the index of the first expired timer with an ms <= action.lastMs
         const expiredCuttOffIndex = findIndex(expiredTimers, o => o.ms <= action.lastMs);
-        // use the index to slice off just the timers that expired during the last increment.
-        recentlyExpired = [...expiredTimers.slice(0, expiredCuttOffIndex)];
+
+        if (expiredCuttOffIndex < 0) {
+          // If expiredCuttOffIndex < 0 we know that no timer exists with an ms <= action.lastMs
+          // however this does not mean no timers exist or have expired.
+          // When the system is new, ex: action.lastMs === 0, timer(s) can exist with an ms
+          // greater than action.lastMs (greater than 0)
+          // To account for this we check to see if there are indeed expiredTimers by checking if
+          // expiredTimers[0] is defined.
+          if (!isUndefined(expiredTimers[0])) {
+          // If expiredTimers[0] is defined we know that we have expiredTimers
+          // move all timers that have expired into the recentlyExpired by running a filter for all
+          // timers with an ms <= to action.ms
+            recentlyExpired = [...filter(expiredTimers, o => o.ms <= action.ms)];
+          } else {
+            // if expiredTimers[0] is undefined than there in fact no timers and we can safely
+            // return an empty array
+            recentlyExpired = [];
+          }
+        } else {
+          recentlyExpired = [...expiredTimers.slice(0, expiredCuttOffIndex)];
+        }
       } else {
         recentlyExpired = state.recentlyExpired;
       }
