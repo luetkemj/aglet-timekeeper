@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const BabelEnginePlugin = require('babel-engine-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -87,6 +88,9 @@ module.exports = {
   },
 
   plugins: [
+    new BabelEnginePlugin({
+      presets: ['env'],
+    }),
     new HtmlWebpackPlugin(makeTemplate('index')),
     new HtmlWebpackHarddiskPlugin({
       outputPath: distPath,
