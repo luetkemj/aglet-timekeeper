@@ -1,8 +1,10 @@
+// @flow
+
 import moment from 'moment';
 
-export function getSky(hoursN) {
+export function getSky(hoursN: number): string {
   // set the sky colors per time of day
-  let sky;
+  let sky = '';
   if (hoursN === 6) {
     sky = 'dawn';
   } else if (hoursN === 18) {
@@ -16,7 +18,7 @@ export function getSky(hoursN) {
   return sky;
 }
 
-export function getRotation(days, hoursN, minutesN) {
+export function getRotation(days: number, hoursN: number, minutesN: number): number {
   // set the rotation of the sun and moon
   const rotation =
   // get the rotation based on total number of days
@@ -30,7 +32,7 @@ export function getRotation(days, hoursN, minutesN) {
   return rotation;
 }
 
-export function getPhaseOfMoon(day, hours) {
+export function getPhaseOfMoon(day: number, hours: number): number {
   // day is 0 based so we need to add 1 because our phases of the moon are 1 based
   const dayN = parseInt(day, 10) + 1;
   const hoursN = parseInt(hours, 10);
@@ -49,7 +51,15 @@ export function getPhaseOfMoon(day, hours) {
   return dayN % 28;
 }
 
-export function buildTimeUI(ms) {
+export function buildTimeUI(ms: number): {
+    ms: number,
+    days: number,
+    hours: string,
+    minutes: string,
+    seconds: string,
+    sky: string,
+    rotation: number,
+  } {
   const myMoment = moment.utc(ms);
 
   // get days from start of time
@@ -73,5 +83,115 @@ export function buildTimeUI(ms) {
     seconds,
     sky,
     rotation,
+  };
+}
+
+// PARSER
+export function getMacro(timer: string): ?string {
+  const matches = timer.match(/^(?:\d*\.)?\d\w+:/gi);
+
+  if (matches) {
+    return matches[0];
+  }
+
+  return null;
+}
+
+export function getText(timer: string, macro: string): string {
+  return timer.replace(macro, '').trim();
+}
+
+export function getPairsFromMacro(macro: string) {
+  const matches = macro.match(/(-*[0-9]+[a-z]{1})/gi);
+
+  if (matches) {
+    return matches;
+  }
+
+  return null;
+}
+
+export function isValidUnit(unit: string): boolean {
+  const validUnits = ['s', 'm', 'h', 'd', 'y'];
+
+  return validUnits.includes(unit.toLowerCase());
+}
+
+export function getUnitFromPair(pair: string): ?string {
+  // make sure that pair is valid
+  if (!pair.match(/(-*[0-9]+[a-z]{1})/gi)) {
+    return null;
+  }
+
+  // pair is valid, find unit
+  const matches = pair.match(/([a-z]{1})/i);
+
+  // return unit if it exists and is valid
+  if (matches) {
+    if (matches[0] && isValidUnit(matches[0])) {
+      return matches[0];
+    }
+  }
+
+  return null;
+}
+
+export function getDurationFromPair(pair: string): ?number {
+  // make sure that pair is valid
+  if (!pair.match(/(-*[0-9]+[a-z]{1})/gi)) {
+    return null;
+  }
+
+  // pair is valid, find number
+  const matches = pair.match(/([0-9]+)/g);
+
+  // return duration if it exists
+  if (matches) {
+    return parseInt(matches[0], 10);
+  }
+
+  return null;
+}
+
+export function getMsFromPair(pair: string): ?number {
+  const dict = {
+    s: 1000,
+    m: 60000,
+    h: 3600000,
+    d: 86400000,
+    y: 31557600000,
+  };
+
+  const unit = getUnitFromPair(pair);
+  if (!unit || !isValidUnit(unit)) {
+    return null;
+  }
+
+  const duration = getDurationFromPair(pair);
+  if (!duration) {
+    return null;
+  }
+
+  return duration * dict[unit];
+}
+
+export function parseTimer(timer: string): ?{
+    ms: number,
+    text: string,
+  } {
+  const macro = getMacro(timer);
+  if (!macro) { return null; }
+
+  const pairs = getPairsFromMacro(macro);
+  if (!pairs) { return null; }
+
+  const text = getText(timer, macro);
+  if (!text) { return null; }
+
+  const ms = pairs.reduce((sum, pair) => sum + getMsFromPair(pair), 0);
+
+  return {
+    ms,
+    text,
   };
 }

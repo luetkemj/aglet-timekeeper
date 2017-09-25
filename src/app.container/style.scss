@@ -38,6 +38,13 @@ $scaled-large: $size * ($large * 0.01);
   margin: 24px 0;
 }
 
+.timers {
+  padding: 24px;
+  max-width: 320px;
+  margin: 0 auto;
+  border-top: 1px solid $swatch01;
+}
+
 .controls {
   display: flex;
   width: $size * 1.38px;
