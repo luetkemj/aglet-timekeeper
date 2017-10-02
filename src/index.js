@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import App from './app.container';
+import App from './containers/app/app.container';
 import reducer from './reducers';
 
 const logger = createLogger({

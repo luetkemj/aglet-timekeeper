@@ -1,0 +1,80 @@
+@import '../../theme/typography';
+@import '../../theme/swatches';
+
+.container {
+  @include font;
+  color: $swatch01;
+}
+
+.componentHead {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.title {
+  @include font((font-size: 24px));
+}
+
+.button {
+  transition: 300ms ease;
+
+  &:hover {
+    color: $swatch05;
+  }
+
+  &:active {
+    color: $swatch07;
+  }
+}
+
+.input {
+  height: 35px;
+  width: 100%;
+  border: 1px solid $swatch01;
+  margin-bottom: 24px;
+  @include font((font-size: $small));
+  padding: 8px;
+
+  transition: border 300ms ease;
+
+  &.invalid {
+    border: 1px solid $swatch08;
+  }
+}
+
+.header {
+  margin-bottom: 12px;
+}
+
+.list {
+  margin-bottom: 24px;
+}
+
+.timer {
+  margin-bottom: 8px;
+}
+
+.adverb {
+  @include font((font-size: $small));
+}
+
+.time {
+  @include font((font-size: $small));
+}
+
+.text {
+  @include font((font-weight: $bold));
+  display: block;
+}
+
+.alerts {
+  margin-bottom: 24px;
+}
+
+.alert {
+  margin-bottom: 8px;
+  color: $swatch08;
+}
