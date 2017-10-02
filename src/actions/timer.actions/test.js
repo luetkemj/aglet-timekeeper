@@ -37,6 +37,15 @@ describe('timer actions', () => {
     });
   });
 
+  describe('removeAllTimers', () => {
+    it('should dispatch properly', () => {
+      store.dispatch(timerActions.removeAllTimers());
+      const actions = store.getActions();
+      expect(actions.length).toBe(1);
+      expect(actions[0].type).toBe(types.REMOVE_ALL_TIMERS);
+    });
+  });
+
   describe('updateTimers', () => {
     it('should dispatch properly', () => {
       store.dispatch(dispatch => timerActions.updateTimers(dispatch, 1));

@@ -1,6 +1,10 @@
+export const RESET_TIME = 'RESET_TIME';
 export const UPDATE_TIME = 'UPDATE_TIME';
 export const UNDO_UPDATE_TIME = 'UNDO_UPDATE_TIME';
 
 export const ADD_TIMER = 'ADD_TIMER';
 export const REMOVE_TIMER = 'REMOVE_TIMER';
+export const REMOVE_ALL_TIMERS = 'REMOVE_ALL_TIMERS';
 export const UPDATE_TIMERS = 'UPDATE_TIMERS';
+
+export const RESET_TIME_HISTORY = 'RESET_TIME_HISTORY';

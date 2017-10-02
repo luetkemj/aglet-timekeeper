@@ -1,6 +1,8 @@
 import {
   UNDO_UPDATE_TIME,
   UPDATE_TIME,
+  RESET_TIME,
+  RESET_TIME_HISTORY,
 } from '../../constants/action-types';
 import reducer from './index';
 
@@ -89,6 +91,40 @@ describe('time reducer', () => {
         sky: 'night',
         rotation: -540,
         history: [0],
+      });
+    });
+
+    it('should handle RESET_TIME', () => {
+      expect(
+        reducer(state, {
+          type: RESET_TIME,
+        }),
+      ).toEqual({
+        ms: 0,
+        days: 1,
+        hours: '12',
+        minutes: '00',
+        seconds: '00',
+        sky: 'night',
+        rotation: -540,
+        history: [0, 1000],
+      });
+    });
+
+    it('should handle RESET_TIME_HISTORY', () => {
+      expect(
+        reducer(state, {
+          type: RESET_TIME_HISTORY,
+        }),
+      ).toEqual({
+        ms: 1000,
+        days: 1,
+        hours: '12',
+        minutes: '00',
+        seconds: '01',
+        sky: 'night',
+        rotation: -540,
+        history: [],
       });
     });
   });

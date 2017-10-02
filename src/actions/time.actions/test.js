@@ -36,4 +36,13 @@ describe('time actions', () => {
       expect(actions[1].type).toBe(types.UPDATE_TIMERS);
     });
   });
+
+  describe('resetTime', () => {
+    it('should dispatch properly', () => {
+      store.dispatch(timeActions.resetTime());
+      const actions = store.getActions();
+      expect(actions.length).toBe(1);
+      expect(actions[0].type).toBe(types.RESET_TIME);
+    });
+  });
 });

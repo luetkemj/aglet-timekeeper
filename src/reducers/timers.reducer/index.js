@@ -3,6 +3,7 @@ import { cloneDeep, filter, findIndex, isUndefined, sortedIndexBy } from 'lodash
 import {
   ADD_TIMER,
   REMOVE_TIMER,
+  REMOVE_ALL_TIMERS,
   UPDATE_TIMERS,
 } from '../../constants/action-types';
 
@@ -33,6 +34,10 @@ export default function timeReducer(state = initialState, action) {
         active: state.active,
         expired: state.expired,
       });
+    }
+
+    case REMOVE_ALL_TIMERS: {
+      return Object.assign({}, state, initialState);
     }
 
     case REMOVE_TIMER: {
