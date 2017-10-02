@@ -1,6 +1,8 @@
 import {
   UNDO_UPDATE_TIME,
   UPDATE_TIME,
+  RESET_TIME,
+  RESET_TIME_HISTORY,
 } from '../../constants/action-types';
 import { buildTimeUI } from '../../utils/index';
 
@@ -73,6 +75,24 @@ export default function timeReducer(state = timeKeeperState || initialState, act
         history,
       }));
       return newState;
+    }
+
+    case RESET_TIME: {
+      return Object.assign({}, state, {
+        ms: 0,
+        days: 1,
+        hours: '12',
+        minutes: '00',
+        seconds: '00',
+        sky: 'night',
+        rotation: -540,
+      });
+    }
+
+    case RESET_TIME_HISTORY: {
+      return Object.assign({}, state, {
+        history: [],
+      });
     }
 
     default:

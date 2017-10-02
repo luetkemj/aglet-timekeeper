@@ -1,4 +1,5 @@
 import {
+  RESET_TIME,
   UNDO_UPDATE_TIME,
   UPDATE_TIME,
 } from '../../constants/action-types';
@@ -21,5 +22,11 @@ export function updateTime(ms) {
 
     dispatch({ type: UPDATE_TIME, ms });
     return updateTimers(dispatch, ms, lastMs);
+  };
+}
+
+export function resetTime() {
+  return (dispatch) => {
+    dispatch({ type: RESET_TIME });
   };
 }
