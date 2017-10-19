@@ -1,6 +1,4 @@
-import {
-  UPDATE_TIME,
-} from '../../constants/action-types';
+import * as types from '../../constants/action-types';
 import reducer from './time.reducer';
 
 const initialState = {
@@ -23,10 +21,10 @@ describe('time reducer', () => {
   });
 
   describe('in the inital state', () => {
-    it('should handle UPDATE_TIME', () => {
+    it('should handle UPDATE_TIMEKEEPER', () => {
       expect(
         reducer(initialState, {
-          type: UPDATE_TIME,
+          type: types.UPDATE_TIMEKEEPER,
           ms: 1000,
         }),
       ).toEqual({
@@ -54,10 +52,10 @@ describe('time reducer', () => {
         rotation: -540,
       };
     });
-    it('should handle UPDATE_TIME', () => {
+    it('should handle UPDATE_TIMEKEEPER', () => {
       expect(
         reducer(state, {
-          type: UPDATE_TIME,
+          type: types.UPDATE_TIMEKEEPER,
           ms: 2000,
         }),
       ).toEqual({

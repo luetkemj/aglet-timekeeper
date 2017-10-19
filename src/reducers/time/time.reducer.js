@@ -1,5 +1,5 @@
 import {
-  UPDATE_TIME,
+  UPDATE_TIMEKEEPER,
 } from '../../constants/action-types';
 import { buildTimeUI } from '../../utils/time-ui/time-ui.utils';
 
@@ -15,7 +15,7 @@ const initialState = {
 
 export default function timeReducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_TIME: {
+    case UPDATE_TIMEKEEPER: {
       return Object.assign({}, state, {
         ...buildTimeUI(action.ms),
       });
