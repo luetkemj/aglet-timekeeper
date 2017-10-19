@@ -10,9 +10,8 @@ let store;
 describe('time actions', () => {
   beforeEach(() => {
     store = mockStore({
-      timeState: {
-        ms: 2,
-        history: [],
+      historyState: {
+        time: [0],
       },
     });
   });
@@ -21,28 +20,139 @@ describe('time actions', () => {
     it('should dispatch properly', () => {
       store.dispatch(timeActions.updateTime(1000));
       const actions = store.getActions();
-      expect(actions.length).toBe(2);
-      expect(actions[0].type).toBe(types.UPDATE_TIME);
-      expect(actions[1].type).toBe(types.UPDATE_TIMERS);
+      expect(actions).toEqual([
+        {
+          type: types.UPDATE_TIMEKEEPER,
+          ms: 1000,
+        },
+        {
+          type: types.UPDATE_TIME_HISTORY,
+          ms: 1000,
+        },
+        {
+          type: types.UPDATE_TIMERS,
+          lastMs: 0,
+          ms: 1000,
+        },
+      ]);
     });
   });
 
   describe('undoUpdateTime', () => {
-    it('should dispatch properly', () => {
-      store.dispatch(timeActions.undoUpdateTime(1000));
-      const actions = store.getActions();
-      expect(actions.length).toBe(2);
-      expect(actions[0].type).toBe(types.UNDO_UPDATE_TIME);
-      expect(actions[1].type).toBe(types.UPDATE_TIMERS);
-    });
-  });
+    describe('when history.time.length === 1', () => {
+      beforeEach(() => {
+        store = mockStore({
+          historyState: {
+            time: [0],
+          },
+        });
+      });
 
-  describe('resetTime', () => {
-    it('should dispatch properly', () => {
-      store.dispatch(timeActions.resetTime());
-      const actions = store.getActions();
-      expect(actions.length).toBe(1);
-      expect(actions[0].type).toBe(types.RESET_TIME);
+      it('should dispatch properly', () => {
+        store.dispatch(timeActions.undoUpdateTime(1000));
+        const actions = store.getActions();
+        expect(actions).toEqual([
+          {
+            type: types.UPDATE_TIMEKEEPER,
+            ms: 1000,
+          },
+          {
+            type: types.UNDO_UPDATE_TIME_HISTORY,
+          },
+          {
+            type: types.UPDATE_TIMERS,
+            lastMs: 0,
+            ms: 1000,
+          },
+        ]);
+      });
+    });
+
+    describe('when history.time.length === 2', () => {
+      beforeEach(() => {
+        store = mockStore({
+          historyState: {
+            time: [0, 1],
+          },
+        });
+      });
+
+      it('should dispatch properly', () => {
+        store.dispatch(timeActions.undoUpdateTime(1000));
+        const actions = store.getActions();
+        expect(actions).toEqual([
+          {
+            type: types.UPDATE_TIMEKEEPER,
+            ms: 1000,
+          },
+          {
+            type: types.UNDO_UPDATE_TIME_HISTORY,
+          },
+          {
+            type: types.UPDATE_TIMERS,
+            lastMs: 0,
+            ms: 1000,
+          },
+        ]);
+      });
+    });
+
+    describe('when history.time.length === 3', () => {
+      beforeEach(() => {
+        store = mockStore({
+          historyState: {
+            time: [0, 1, 2],
+          },
+        });
+      });
+
+      it('should dispatch properly', () => {
+        store.dispatch(timeActions.undoUpdateTime(1000));
+        const actions = store.getActions();
+        expect(actions).toEqual([
+          {
+            type: types.UPDATE_TIMEKEEPER,
+            ms: 1000,
+          },
+          {
+            type: types.UNDO_UPDATE_TIME_HISTORY,
+          },
+          {
+            type: types.UPDATE_TIMERS,
+            lastMs: 0,
+            ms: 1000,
+          },
+        ]);
+      });
+    });
+
+    describe('when history.time.length === 4', () => {
+      beforeEach(() => {
+        store = mockStore({
+          historyState: {
+            time: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+          },
+        });
+      });
+
+      it('should dispatch properly', () => {
+        store.dispatch(timeActions.undoUpdateTime(1000));
+        const actions = store.getActions();
+        expect(actions).toEqual([
+          {
+            type: types.UPDATE_TIMEKEEPER,
+            ms: 1000,
+          },
+          {
+            type: types.UNDO_UPDATE_TIME_HISTORY,
+          },
+          {
+            type: types.UPDATE_TIMERS,
+            lastMs: 6,
+            ms: 1000,
+          },
+        ]);
+      });
     });
   });
 });
