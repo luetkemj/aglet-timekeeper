@@ -26,6 +26,10 @@ describe('app actions', () => {
       const actions = store.getActions();
       expect(actions).toEqual([
         {
+          timers: [],
+          type: types.SET_TIMERS,
+        },
+        {
           ms: 0,
           type: types.UPDATE_TIMEKEEPER,
         },

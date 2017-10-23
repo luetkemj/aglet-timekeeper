@@ -2,8 +2,13 @@ import {
   ADD_TIMER,
   REMOVE_TIMER,
   REMOVE_ALL_TIMERS,
+  SET_TIMERS,
   UPDATE_TIMERS,
 } from '../../constants/action-types';
+
+export function setTimers(timers) {
+  return dispatch => dispatch({ type: SET_TIMERS, timers });
+}
 
 export function updateTimers(dispatch, ms, lastMs) {
   return dispatch({ type: UPDATE_TIMERS, ms, lastMs });

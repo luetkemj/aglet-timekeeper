@@ -1,9 +1,11 @@
-import { cloneDeep, filter, findIndex, isUndefined, sortedIndexBy } from 'lodash';
+import { cloneDeep, filter, findIndex, isUndefined } from 'lodash';
+import { createNewTimer, insertTimer } from './timers.utils';
 
 import {
   ADD_TIMER,
   REMOVE_TIMER,
   REMOVE_ALL_TIMERS,
+  SET_TIMERS,
   UPDATE_TIMERS,
 } from '../../constants/action-types';
 
@@ -17,17 +19,8 @@ const initialState = {
 export default function timeReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TIMER: {
-      const newTimer = cloneDeep(action.timer);
-      newTimer.ms = action.timer.ms + action.ms;
-
-      // find index to insert new timer
-      const index = sortedIndexBy(state.timers, newTimer, 'ms');
-
-      const timers = [
-        ...state.timers.slice(0, index),
-        newTimer,
-        ...state.timers.slice(index),
-      ];
+      const timer = createNewTimer(action.timer, action.ms);
+      const timers = insertTimer(state.timers, timer);
 
       return Object.assign({}, state, {
         timers,
@@ -48,6 +41,12 @@ export default function timeReducer(state = initialState, action) {
         ],
         active: state.active,
         expired: state.expired,
+      });
+    }
+
+    case SET_TIMERS: {
+      return Object.assign({}, state, {
+        timers: action.timers,
       });
     }
 

@@ -10,4 +10,5 @@ export const UPDATE_TIMEKEEPER = 'UPDATE_TIMEKEEPER';
 export const ADD_TIMER = 'ADD_TIMER';
 export const REMOVE_TIMER = 'REMOVE_TIMER';
 export const REMOVE_ALL_TIMERS = 'REMOVE_ALL_TIMERS';
+export const SET_TIMERS = 'SET_TIMERS';
 export const UPDATE_TIMERS = 'UPDATE_TIMERS';
