@@ -1,4 +1,5 @@
 // @flow
+import { get } from 'lodash';
 import config from '../../config';
 
 export function parseLocalStorageData(data: ?string) {
@@ -44,16 +45,25 @@ export function getInitialHistoryStateFromLocalStorage() {
     if (localStorageData && localStorageData.history && Array.isArray(localStorageData.history)) {
       return Object.assign({}, historyState, {
         time: localStorageData.history,
+        timers: [],
       });
     }
 
     // old localStorageData structure does not exist.
-    // return localStorageData if it exists, else start over at [0]
+    // check if localStorageData exists
     if (localStorageData) {
-      return localStorageData.history || { time: [0] };
+      // validate data on localStorageData and provide intialize where necessary
+      // return localStorageData.history || { time: [0] };
+      return {
+        time: get(localStorageData, 'history.time', [0]),
+        timers: get(localStorageData, 'history.timers', []),
+      };
     }
   }
 
-  // no initial history exists so we initialize at [0]
-  return { time: [0] };
+  // no initial history exists so we initialize it
+  return {
+    time: [0],
+    timers: [],
+  };
 }

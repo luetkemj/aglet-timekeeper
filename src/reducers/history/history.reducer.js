@@ -3,11 +3,14 @@ import {
   UPDATE_TIME_HISTORY,
   UNDO_UPDATE_TIME_HISTORY,
   RESET_TIME_HISTORY,
+  ADD_TIMER,
 } from '../../constants/action-types';
+import { createNewTimer, insertTimer } from '../timers/timers.utils';
 import { getInitialHistoryStateFromLocalStorage, updateLocalStorage } from '../../utils/local-storage/local-storage';
 
 const initialState = {
   time: [0],
+  timers: [],
 };
 
 const localStorageData = getInitialHistoryStateFromLocalStorage();
@@ -43,6 +46,18 @@ export default function timeReducer(state = localStorageData || initialState, ac
     case RESET_TIME_HISTORY: {
       const newState = Object.assign({}, state, {
         time: [action.ms],
+      });
+
+      updateLocalStorage({ [config.localStorage.history]: { ...newState } });
+      return newState;
+    }
+
+    case ADD_TIMER: {
+      const timer = createNewTimer(action.timer, action.ms);
+      const timers = insertTimer(state.timers, timer);
+
+      const newState = Object.assign({}, state, {
+        timers,
       });
 
       updateLocalStorage({ [config.localStorage.history]: { ...newState } });

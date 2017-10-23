@@ -46,6 +46,15 @@ describe('timer actions', () => {
     });
   });
 
+  describe('setTimers', () => {
+    it('should dispatch properly', () => {
+      store.dispatch(timerActions.setTimers());
+      const actions = store.getActions();
+      expect(actions.length).toBe(1);
+      expect(actions[0].type).toBe(types.SET_TIMERS);
+    });
+  });
+
   describe('updateTimers', () => {
     it('should dispatch properly', () => {
       store.dispatch(dispatch => timerActions.updateTimers(dispatch, 1));

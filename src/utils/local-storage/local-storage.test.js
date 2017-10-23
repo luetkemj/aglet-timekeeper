@@ -78,18 +78,36 @@ describe('localStorage utils', () => {
       it('should work', () => {
         expect(utils.getInitialHistoryStateFromLocalStorage()).toEqual({
           time: [0],
+          timers: [],
         });
       });
     });
 
     describe('when correct data structure exists', () => {
       beforeEach(() => {
-        localStorage.setItem('agletTimekeeper', JSON.stringify({ history: { time: [1] } }));
+        localStorage.setItem('agletTimekeeper', JSON.stringify(
+          {
+            history: {
+              time: [1],
+              timers: [
+                {
+                  time: 1,
+                  text: 'foo',
+                },
+              ],
+            },
+          }));
       });
 
       it('should work', () => {
         expect(utils.getInitialHistoryStateFromLocalStorage()).toEqual({
           time: [1],
+          timers: [
+            {
+              time: 1,
+              text: 'foo',
+            },
+          ],
         });
       });
     });
@@ -100,7 +118,7 @@ describe('localStorage utils', () => {
       });
 
       it('should work', () => {
-        expect(utils.getInitialHistoryStateFromLocalStorage()).toEqual({ time: [0] });
+        expect(utils.getInitialHistoryStateFromLocalStorage()).toEqual({ time: [0], timers: [] });
       });
     });
 
@@ -110,7 +128,7 @@ describe('localStorage utils', () => {
       });
 
       it('should work', () => {
-        expect(utils.getInitialHistoryStateFromLocalStorage()).toEqual({ time: [0] });
+        expect(utils.getInitialHistoryStateFromLocalStorage()).toEqual({ time: [0], timers: [] });
       });
     });
   });
