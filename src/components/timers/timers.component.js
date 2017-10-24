@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import prettyMs from 'pretty-ms';
-import { parseTimer } from '../../utils/timers-parser/timers-parser.utils';
+import { find } from 'lodash';
 
+import { parseTimer } from '../../utils/timers-parser/timers-parser.utils';
 import style from './timers.component.style.scss';
 
 type Props = {
@@ -102,41 +103,46 @@ class Timers extends Component<Props, State> {
       </div>
     ));
 
-    const inactiveTimersToRender = this.props.timersState.expired.map(timer => (
-      <div
-        key={`${timer.ms}${timer.text}`}
-        className={style.timer}
-      >
-        <span
-          className={style.time}
-        >{prettyMs(ms - timer.ms)}</span> <span className={style.adverb}>ago: </span>
-        <span className={style.text}>{timer.text}</span>
+    const inactiveTimersToRender = this.props.timersState.expired.map((timer) => {
+      let timerClasses = style.timer;
+      if (find(this.props.timersState.recentlyExpired, { ...timer })) {
+        timerClasses += ` ${style.alert}`;
+      }
+
+      return (
+        <div
+          key={`${timer.ms}${timer.text}`}
+          className={timerClasses}
+        >
+          <span
+            className={style.time}
+          >{prettyMs(ms - timer.ms)}</span> <span className={style.adverb}>ago: </span>
+          <span className={style.text}>{timer.text}</span>
+        </div>
+      );
+    });
+
+    const activeTimersBlock = (
+      <div>
+        <div className={style.header}>ACTIVE</div>
+        <div className={style.list}>
+          {activeTimersToRender.length
+            ? activeTimersToRender
+            : <div>No active timers</div>}
+        </div>
       </div>
-    ));
+    );
 
-    let activeTimersBlock;
-    if (activeTimersToRender.length) {
-      activeTimersBlock = (
-        <div>
-          <div className={style.header}>ACTIVE</div>
-          <div className={style.list}>
-            {activeTimersToRender}
-          </div>
+    const inactiveTimersBlock = (
+      <div>
+        <div className={style.header}>EXPIRED</div>
+        <div className={style.list}>
+          {inactiveTimersToRender.length
+            ? inactiveTimersToRender
+            : <div>No expired timers</div>}
         </div>
-      );
-    }
-
-    let inactiveTimersBlock;
-    if (inactiveTimersToRender.length) {
-      inactiveTimersBlock = (
-        <div>
-          <div className={style.header}>EXPIRED</div>
-          <div className={style.list}>
-            {inactiveTimersToRender}
-          </div>
-        </div>
-      );
-    }
+      </div>
+    );
 
     let alertsToRender;
     if (this.props.timersState.recentlyExpired.length) {
@@ -160,6 +166,7 @@ class Timers extends Component<Props, State> {
       );
     }
 
+
     return (
       <div className={style.container}>
         {alertsBlock}
@@ -171,7 +178,6 @@ class Timers extends Component<Props, State> {
             onClick={this.handleSubmit}
           >SUBMIT</button>
         </div>
-
         <form onSubmit={this.handleSubmit}>
           <input
             className={inputClasses}

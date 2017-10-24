@@ -47,14 +47,38 @@
 
 .header {
   margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid $swatch01;
 }
 
 .list {
   margin-bottom: 24px;
 }
 
+.timers {
+  .alert {
+    color: $swatch01;
+    animation: none;
+  }
+
+  @media (min-width: 500px) {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      width: calc(50% - 10px);
+    }
+
+    .alert {
+      color: $swatch08;
+      animation: fadeIn 300ms ease;
+    }
+  }
+}
+
 .timer {
   margin-bottom: 8px;
+  transition: color 300ms ease;
 }
 
 .adverb {
@@ -71,10 +95,25 @@
 }
 
 .alerts {
-  margin-bottom: 24px;
+  display: block;
+
+  @media (min-width: 500px) {
+    display: none;
+  }
 }
 
 .alert {
   margin-bottom: 8px;
   color: $swatch08;
+  animation: fadeIn 300ms ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    color: $swatch01;
+  }
+
+  100% {
+    color: $swatch08;
+  }
 }
