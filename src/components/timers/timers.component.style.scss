@@ -64,7 +64,6 @@
   @media (min-width: 500px) {
     display: flex;
     justify-content: space-between;
-    animation: fadeIn 300ms ease;
 
     & > div {
       width: calc(50% - 10px);
@@ -72,6 +71,7 @@
 
     .alert {
       color: $swatch08;
+      animation: fadeIn 300ms ease;
     }
   }
 }
