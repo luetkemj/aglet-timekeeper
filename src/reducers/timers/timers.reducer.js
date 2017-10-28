@@ -3,6 +3,8 @@ import { createNewTimer, insertTimer } from './timers.utils';
 
 import {
   ADD_TIMER,
+  ADD_TIMER_ERROR,
+  CLEAR_ADD_TIMER_ERROR,
   REMOVE_TIMER,
   REMOVE_ALL_TIMERS,
   SET_TIMERS,
@@ -14,6 +16,7 @@ const initialState = {
   active: [],
   expired: [],
   recentlyExpired: [],
+  error: null,
 };
 
 export default function timeReducer(state = initialState, action) {
@@ -26,6 +29,19 @@ export default function timeReducer(state = initialState, action) {
         timers,
         active: state.active,
         expired: state.expired,
+        error: null,
+      });
+    }
+
+    case ADD_TIMER_ERROR: {
+      return Object.assign({}, state, {
+        error: action.error,
+      });
+    }
+
+    case CLEAR_ADD_TIMER_ERROR: {
+      return Object.assign({}, state, {
+        error: null,
       });
     }
 
@@ -102,12 +118,12 @@ export default function timeReducer(state = initialState, action) {
         recentlyExpired = state.recentlyExpired;
       }
 
-      return {
+      return Object.assign({}, state, {
         timers,
         active,
         expired,
         recentlyExpired,
-      };
+      });
     }
 
     default:

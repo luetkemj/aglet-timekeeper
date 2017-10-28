@@ -10,6 +10,7 @@ const initialState = {
   active: [],
   expired: [],
   recentlyExpired: [],
+  error: null,
 };
 
 describe('timers reducer', () => {
@@ -30,6 +31,7 @@ describe('timers reducer', () => {
         active: [],
         expired: [],
         recentlyExpired: [],
+        error: null,
       });
     });
   });
@@ -59,6 +61,7 @@ describe('timers reducer', () => {
         active: [],
         expired: [],
         recentlyExpired: [],
+        error: null,
       });
     });
 
@@ -73,6 +76,7 @@ describe('timers reducer', () => {
           active: [],
           expired: [],
           recentlyExpired: [],
+          error: null,
         }, {
           type: REMOVE_TIMER,
           index: 1,
@@ -85,6 +89,7 @@ describe('timers reducer', () => {
         active: [],
         expired: [],
         recentlyExpired: [],
+        error: null,
       });
     });
   });
@@ -106,6 +111,7 @@ describe('timers reducer', () => {
             { ms: 3, text: 'bar' },
           ],
           recentlyExpired: [],
+          error: null,
         }, {
           type: UPDATE_TIMERS,
           ms: 2,
@@ -124,6 +130,7 @@ describe('timers reducer', () => {
           { ms: 1, text: 'foo' },
         ],
         recentlyExpired: [],
+        error: null,
       });
     });
 
