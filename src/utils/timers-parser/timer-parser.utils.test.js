@@ -12,8 +12,9 @@ describe('utils', () => {
       });
     });
     describe('when macro does not exists in string', () => {
-      it('should return null', () => {
-        expect(utils.getMacro('foo')).toBe(null);
+      it('should throw', () => {
+        expect(() => utils.getMacro('foo'))
+          .toThrow('Timers must begin with a single [unit][duration] macro like "1h:"');
       });
     });
   });
@@ -33,8 +34,9 @@ describe('utils', () => {
       });
     });
     describe('when pairs do not exists in macro', () => {
-      it('should return null', () => {
-        expect(utils.getPairsFromMacro('foo')).toBe(null);
+      it('should throw', () => {
+        expect(() => utils.getPairsFromMacro('foo'))
+          .toThrow('No [unit][duration] pairs found in macro: "foo"');
       });
     });
   });
@@ -46,8 +48,9 @@ describe('utils', () => {
       });
     });
     describe('when unit does not exist in pair', () => {
-      it('should return null', () => {
-        expect(utils.getUnitFromPair('foo')).toBe(null);
+      it('should throw', () => {
+        expect(() => utils.getUnitFromPair('foo'))
+          .toThrow('Invalid macro expected [unit][duration] got "foo"');
       });
     });
   });
@@ -64,8 +67,9 @@ describe('utils', () => {
       });
     });
     describe('when duration does not exist in pair', () => {
-      it('should return null', () => {
-        expect(utils.getDurationFromPair('25')).toBe(null);
+      it('should throw', () => {
+        expect(() => utils.getDurationFromPair('25'))
+          .toThrow('Invalid macro expected [unit][duration] got "25"');
       });
     });
   });
@@ -75,8 +79,14 @@ describe('utils', () => {
       expect(utils.isValidUnit('s')).toBe(true);
     });
 
-    it('should return false when unit is invalid', () => {
-      expect(utils.isValidUnit('z')).toBe(false);
+    it('should throw when unit null', () => {
+      expect(() => utils.isValidUnit())
+        .toThrow('Unit must exist');
+    });
+
+    it('should throw when unit is invalid', () => {
+      expect(() => utils.isValidUnit('z'))
+        .toThrow('Unit "z" is not valid. Expected unit to be one of [s, m, h, d, y]');
     });
   });
 
@@ -95,9 +105,6 @@ describe('utils', () => {
     });
     it('should work with years', () => {
       expect(utils.getMsFromPair('1y')).toBe(31557600000);
-    });
-    it('should return null if given an invalid pair', () => {
-      expect(utils.getMsFromPair('1foo')).toBe(null);
     });
   });
 
