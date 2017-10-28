@@ -4,16 +4,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import prettyMs from 'pretty-ms';
-import { find } from 'lodash';
+import { find, get } from 'lodash';
 
-import { parseTimer } from '../../utils/timers-parser/timers-parser.utils';
 import style from './timers.component.style.scss';
 
 type Props = {
-  onSubmit: (timer: {
-    ms: number,
-    text: string,
-  }) => void,
+  onSubmit: (timer: string) => void,
+  clearError: () => void,
   timersState: {
     timers: [{
       ms: number,
@@ -31,6 +28,7 @@ type Props = {
       ms: number,
       text: string,
     }],
+    error: ?string,
   },
   timeState: {
     ms: number,
@@ -39,13 +37,27 @@ type Props = {
 
 type State = {
   timer: string,
-  isValid: ?boolean,
 };
 
 class Timers extends Component<Props, State> {
   state = {
     timer: '',
-    isValid: null,
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.timersState.error) {
+      this.setState({
+        timer: '',
+      });
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (this.state.timer &&
+        this.props.timersState.error &&
+        !nextState.timer) {
+      this.props.clearError();
+    }
   }
 
   handleChange = (event: {
@@ -56,7 +68,6 @@ class Timers extends Component<Props, State> {
   }) => {
     this.setState({
       [event.target.name]: event.target.value,
-      isValid: null,
     });
   }
 
@@ -74,23 +85,15 @@ class Timers extends Component<Props, State> {
       return;
     }
 
-    const timer = parseTimer(this.state.timer);
-
-    this.setState({
-      isValid: !!timer || false,
-    });
-
     // focus the button to blur the input field
     event.currentTarget.focus();
-    if (timer) { this.props.onSubmit(timer); }
-    this.setState({
-      timer: '',
-    });
+    this.props.onSubmit(this.state.timer);
   }
 
   render() {
     const { ms } = this.props.timeState;
-    const inputClasses = (this.state.isValid === false) ? `${style.input} ${style.invalid}` : style.input;
+    const { error } = this.props.timersState;
+    const inputClasses = (error) ? `${style.input} ${style.invalid}` : style.input;
 
     const activeTimersToRender = this.props.timersState.active.map(timer => (
       <div
@@ -166,19 +169,35 @@ class Timers extends Component<Props, State> {
       );
     }
 
+    let errorMessageToRender;
+    const errorMessage = get(error, 'message');
+    if (get(error, 'message')) {
+      errorMessageToRender = errorMessage;
+    }
+
 
     return (
       <div className={style.container}>
         {alertsBlock}
         <div className={style.componentHead}>
           <div className={style.title}>TIMERS</div>
-          <button
-            type="submit"
-            className={`${style.button} ${style.submit}`}
-            onClick={this.handleSubmit}
-          >SUBMIT</button>
         </div>
-        <form onSubmit={this.handleSubmit}>
+        <form
+          className={style.form}
+          onSubmit={this.handleSubmit}
+        >
+          <div className={style.formHead}>
+            <label
+              htmlFor="timer"
+              className={style.label}
+            >Add new timer: [duration][unit]: [text]
+            </label>
+            <button
+              type="submit"
+              className={`${style.button} ${style.submit}`}
+              onClick={this.handleSubmit}
+            >SUBMIT</button>
+          </div>
           <input
             className={inputClasses}
             type="text"
@@ -187,6 +206,7 @@ class Timers extends Component<Props, State> {
             value={this.state.timer}
             onChange={this.handleChange}
           />
+          <div className={style.message}>{errorMessageToRender}</div>
         </form>
 
         <div className={style.timers}>
@@ -201,6 +221,7 @@ class Timers extends Component<Props, State> {
 
 Timers.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  clearError: PropTypes.func.isRequired,
   timersState: PropTypes.shape().isRequired,
   timeState: PropTypes.shape().isRequired,
 };

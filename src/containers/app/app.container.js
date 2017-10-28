@@ -7,7 +7,7 @@ import { last } from 'lodash';
 
 import { bootstrap } from '../../actions/app/app.actions';
 import { undoUpdateTime, updateTime } from '../../actions/time/time.actions';
-import { addTimer } from '../../actions/timers/timers.actions';
+import { addTimer, clearAddTimerError } from '../../actions/timers/timers.actions';
 import IncrementButton from '../../components/increment-button/increment-button.component';
 import Sundial from '../../components/sundial/sundial.component';
 import Timers from '../../components/timers/timers.component';
@@ -105,6 +105,7 @@ class AppContainer extends Component {
           <div className={style.timers}>
             <Timers
               onSubmit={input => this.props.addTimer(input, timeState.ms)}
+              clearError={this.props.clearAddTimerError}
             />
           </div>
         </div>
@@ -116,6 +117,7 @@ class AppContainer extends Component {
 
 AppContainer.propTypes = {
   addTimer: PropTypes.func.isRequired,
+  clearAddTimerError: PropTypes.func.isRequired,
   bootstrap: PropTypes.func.isRequired,
   undoUpdateTime: PropTypes.func.isRequired,
   updateTime: PropTypes.func.isRequired,
@@ -130,6 +132,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   addTimer,
+  clearAddTimerError,
   bootstrap,
   undoUpdateTime,
   updateTime,
