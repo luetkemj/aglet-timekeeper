@@ -13,7 +13,12 @@ export function getMacro(timer: string): ?string {
 }
 
 export function getText(timer: string, macro: string): string {
-  return timer.replace(macro, '').trim();
+  const text = timer.replace(macro, '').trim();
+  if (!text) {
+    throw new Error('Timers must contain a [text] description');
+  }
+
+  return text;
 }
 
 export function getPairsFromMacro(macro: string) {

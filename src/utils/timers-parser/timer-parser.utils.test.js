@@ -21,8 +21,13 @@ describe('utils', () => {
 
   describe('getText', () => {
     describe('when text exists', () => {
-      it('shoud work', () => {
+      it('shoud return the text', () => {
         expect(utils.getText('1d3H: foo', '1d3H:')).toBe('foo');
+      });
+
+      it('shoud throw when there is no text', () => {
+        expect(() => utils.getText('1d3H:', '1d3H:'))
+          .toThrow('Timers must contain a [text] description');
       });
     });
   });
