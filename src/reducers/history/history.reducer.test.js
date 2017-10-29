@@ -86,14 +86,14 @@ describe('history reducer', () => {
 
     it('should handle ADD_TIMER', () => {
       expect(
-        reducer(initialState, {
+        reducer({ time: [0, 1, 2], timers: [] }, {
           type: types.ADD_TIMER,
           timer: { ms: 1, text: 'foo' },
           ms: 2,
         }),
       ).toEqual({
-        time: [0],
-        timers: [{ ms: 3, text: 'foo' }],
+        time: [0, 1, 2],
+        timers: [{ ms: 1, text: 'foo' }],
       });
     });
   });

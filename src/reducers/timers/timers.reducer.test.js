@@ -24,10 +24,10 @@ describe('timers reducer', () => {
         reducer(initialState, {
           type: ADD_TIMER,
           timer: { ms: 1, text: 'foo' },
-          ms: 2,
+          ms: 0,
         }),
       ).toEqual({
-        timers: [{ ms: 3, text: 'foo' }],
+        timers: [{ ms: 1, text: 'foo' }],
         active: [],
         expired: [],
         recentlyExpired: [],
@@ -50,13 +50,12 @@ describe('timers reducer', () => {
         }, {
           type: ADD_TIMER,
           timer: { ms: 2, text: 'baz' },
-          ms: 2,
         }),
       ).toEqual({
         timers: [
           { ms: 1, text: 'foo' },
+          { ms: 2, text: 'baz' },
           { ms: 3, text: 'bar' },
-          { ms: 4, text: 'baz' },
         ],
         active: [],
         expired: [],

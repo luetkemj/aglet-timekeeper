@@ -1,5 +1,5 @@
 import { cloneDeep, filter, findIndex, isUndefined } from 'lodash';
-import { createNewTimer, insertTimer } from './timers.utils';
+import { insertTimer } from './timers.utils';
 
 import {
   ADD_TIMER,
@@ -22,8 +22,7 @@ const initialState = {
 export default function timeReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TIMER: {
-      const timer = createNewTimer(action.timer, action.ms);
-      const timers = insertTimer(state.timers, timer);
+      const timers = insertTimer(state.timers, action.timer);
 
       return Object.assign({}, state, {
         timers,

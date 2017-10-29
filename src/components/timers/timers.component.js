@@ -45,7 +45,10 @@ class Timers extends Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.timersState.error) {
+    // if nextProps timers do not equal thisProps timers then we have successfully submitted one
+    // and should clear the add timer form
+    if (JSON.stringify(nextProps.timersState.timers) !==
+        JSON.stringify(this.props.timersState.timers)) {
       this.setState({
         timer: '',
       });
@@ -53,9 +56,8 @@ class Timers extends Component<Props, State> {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (this.state.timer &&
-        this.props.timersState.error &&
-        !nextState.timer) {
+    if (this.state.timer !== nextState.timer &&
+        this.props.timersState.error) {
       this.props.clearError();
     }
   }

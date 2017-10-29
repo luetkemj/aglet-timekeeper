@@ -1,4 +1,6 @@
+import { find } from 'lodash';
 import { parseTimer } from '../../utils/timers-parser/timers-parser.utils';
+import { createNewTimer } from '../../reducers/timers/timers.utils';
 
 import {
   ADD_TIMER,
@@ -26,8 +28,15 @@ export function addTimer(timer) {
   return (dispatch, getState) => {
     try {
       const { ms } = getState().timeState;
+      const { timers } = getState().timersState;
       const parsedTimer = parseTimer(timer);
-      dispatch({ type: ADD_TIMER, timer: parsedTimer, ms });
+      const newTimer = createNewTimer(parsedTimer, ms);
+
+      if (find(timers, newTimer)) {
+        throw new Error('Timer already exists');
+      }
+
+      dispatch({ type: ADD_TIMER, timer: newTimer, ms });
       return updateTimers(dispatch, ms);
     } catch (error) {
       return dispatch({ type: ADD_TIMER_ERROR, error });
