@@ -1,8 +1,10 @@
 import { cloneDeep, filter, findIndex, isUndefined } from 'lodash';
-import { createNewTimer, insertTimer } from './timers.utils';
+import { insertTimer } from './timers.utils';
 
 import {
   ADD_TIMER,
+  ADD_TIMER_ERROR,
+  CLEAR_ADD_TIMER_ERROR,
   REMOVE_TIMER,
   REMOVE_ALL_TIMERS,
   SET_TIMERS,
@@ -14,18 +16,31 @@ const initialState = {
   active: [],
   expired: [],
   recentlyExpired: [],
+  error: null,
 };
 
 export default function timeReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TIMER: {
-      const timer = createNewTimer(action.timer, action.ms);
-      const timers = insertTimer(state.timers, timer);
+      const timers = insertTimer(state.timers, action.timer);
 
       return Object.assign({}, state, {
         timers,
         active: state.active,
         expired: state.expired,
+        error: null,
+      });
+    }
+
+    case ADD_TIMER_ERROR: {
+      return Object.assign({}, state, {
+        error: action.error,
+      });
+    }
+
+    case CLEAR_ADD_TIMER_ERROR: {
+      return Object.assign({}, state, {
+        error: null,
       });
     }
 
@@ -102,12 +117,12 @@ export default function timeReducer(state = initialState, action) {
         recentlyExpired = state.recentlyExpired;
       }
 
-      return {
+      return Object.assign({}, state, {
         timers,
         active,
         expired,
         recentlyExpired,
-      };
+      });
     }
 
     default:

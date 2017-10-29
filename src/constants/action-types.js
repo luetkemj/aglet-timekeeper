@@ -8,6 +8,8 @@ export const UPDATE_TIMEKEEPER = 'UPDATE_TIMEKEEPER';
 
 // timers
 export const ADD_TIMER = 'ADD_TIMER';
+export const ADD_TIMER_ERROR = 'ADD_TIMER_ERROR';
+export const CLEAR_ADD_TIMER_ERROR = 'CLEAR_ADD_TIMER_ERROR';
 export const REMOVE_TIMER = 'REMOVE_TIMER';
 export const REMOVE_ALL_TIMERS = 'REMOVE_ALL_TIMERS';
 export const SET_TIMERS = 'SET_TIMERS';

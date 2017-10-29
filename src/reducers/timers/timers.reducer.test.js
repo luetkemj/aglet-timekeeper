@@ -10,6 +10,7 @@ const initialState = {
   active: [],
   expired: [],
   recentlyExpired: [],
+  error: null,
 };
 
 describe('timers reducer', () => {
@@ -23,13 +24,14 @@ describe('timers reducer', () => {
         reducer(initialState, {
           type: ADD_TIMER,
           timer: { ms: 1, text: 'foo' },
-          ms: 2,
+          ms: 0,
         }),
       ).toEqual({
-        timers: [{ ms: 3, text: 'foo' }],
+        timers: [{ ms: 1, text: 'foo' }],
         active: [],
         expired: [],
         recentlyExpired: [],
+        error: null,
       });
     });
   });
@@ -48,17 +50,17 @@ describe('timers reducer', () => {
         }, {
           type: ADD_TIMER,
           timer: { ms: 2, text: 'baz' },
-          ms: 2,
         }),
       ).toEqual({
         timers: [
           { ms: 1, text: 'foo' },
+          { ms: 2, text: 'baz' },
           { ms: 3, text: 'bar' },
-          { ms: 4, text: 'baz' },
         ],
         active: [],
         expired: [],
         recentlyExpired: [],
+        error: null,
       });
     });
 
@@ -73,6 +75,7 @@ describe('timers reducer', () => {
           active: [],
           expired: [],
           recentlyExpired: [],
+          error: null,
         }, {
           type: REMOVE_TIMER,
           index: 1,
@@ -85,6 +88,7 @@ describe('timers reducer', () => {
         active: [],
         expired: [],
         recentlyExpired: [],
+        error: null,
       });
     });
   });
@@ -106,6 +110,7 @@ describe('timers reducer', () => {
             { ms: 3, text: 'bar' },
           ],
           recentlyExpired: [],
+          error: null,
         }, {
           type: UPDATE_TIMERS,
           ms: 2,
@@ -124,6 +129,7 @@ describe('timers reducer', () => {
           { ms: 1, text: 'foo' },
         ],
         recentlyExpired: [],
+        error: null,
       });
     });
 

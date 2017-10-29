@@ -1,5 +1,7 @@
 // @flow
 
+import { timerUnits } from './timers.utils.dict';
+
 export function getMacro(timer: string): ?string {
   const matches = timer.match(/^(?:\d*\.)?\d\w+:/gi);
 
@@ -7,11 +9,16 @@ export function getMacro(timer: string): ?string {
     return matches[0];
   }
 
-  return null;
+  throw new Error('Timers must begin with a single [unit][duration] macro like "1h:"');
 }
 
 export function getText(timer: string, macro: string): string {
-  return timer.replace(macro, '').trim();
+  const text = timer.replace(macro, '').trim();
+  if (!text) {
+    throw new Error('Timers must contain a [text] description');
+  }
+
+  return text;
 }
 
 export function getPairsFromMacro(macro: string) {
@@ -21,19 +28,27 @@ export function getPairsFromMacro(macro: string) {
     return matches;
   }
 
-  return null;
+  throw new Error(`No [unit][duration] pairs found in macro: "${macro}"`);
 }
 
-export function isValidUnit(unit: string): boolean {
-  const validUnits = ['s', 'm', 'h', 'd', 'y'];
+export function isValidUnit(unit: ?string): boolean {
+  if (!unit) {
+    throw new Error('Unit must exist');
+  }
 
-  return validUnits.includes(unit.toLowerCase());
+  const validUnits = Object.keys(timerUnits);
+
+  if (validUnits.includes(unit.toLowerCase())) {
+    return true;
+  }
+
+  throw new Error(`Unit "${unit}" is not valid. Expected unit to be one of [s, m, h, d, y]`);
 }
 
 export function getUnitFromPair(pair: string): ?string {
   // make sure that pair is valid
   if (!pair.match(/(-*[0-9]+[a-z]{1})/gi)) {
-    return null;
+    throw new Error(`Invalid macro expected [unit][duration] got "${pair}"`);
   }
 
   // pair is valid, find unit
@@ -46,13 +61,13 @@ export function getUnitFromPair(pair: string): ?string {
     }
   }
 
-  return null;
+  throw new Error(`Valid unit not found in ${pair}`);
 }
 
 export function getDurationFromPair(pair: string): ?number {
   // make sure that pair is valid
   if (!pair.match(/(-*[0-9]+[a-z]{1})/gi)) {
-    return null;
+    throw new Error(`Invalid macro expected [unit][duration] got "${pair}"`);
   }
 
   // pair is valid, find number
@@ -63,22 +78,15 @@ export function getDurationFromPair(pair: string): ?number {
     return parseInt(matches[0], 10);
   }
 
-  return null;
+  throw new Error(`Valid duration not found in "${pair}"`);
 }
 
 export function getMsFromPair(pair: string): ?number {
-  const dict = {
-    s: 1000,
-    m: 60000,
-    h: 3600000,
-    d: 86400000,
-    y: 31557600000,
-  };
+  const dict = timerUnits;
 
   const unit = getUnitFromPair(pair);
-  if (!unit || !isValidUnit(unit)) {
-    return null;
-  }
+  // will throw if unit is not valid
+  isValidUnit(unit);
 
   const duration = getDurationFromPair(pair);
   if (!duration) {
